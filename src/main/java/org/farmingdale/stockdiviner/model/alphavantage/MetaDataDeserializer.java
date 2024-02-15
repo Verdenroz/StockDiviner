@@ -1,15 +1,15 @@
-package org.farmingdale.stockdiviner.model;
+package org.farmingdale.stockdiviner.model.alphavantage;
 
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
-public class MetaDataDeserializer implements JsonDeserializer<StockData.MetaData> {
+public class MetaDataDeserializer implements JsonDeserializer<MonthlyStockData.MetaData> {
     @Override
-    public StockData.MetaData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public MonthlyStockData.MetaData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        StockData.MetaData metaData = new StockData.MetaData();
+        MonthlyStockData.MetaData metaData = new MonthlyStockData.MetaData();
         metaData.setInformation(jsonObject.get("1. Information").getAsString());
         metaData.setSymbol(jsonObject.get("2. Symbol").getAsString());
         metaData.setLastRefreshed(jsonObject.get("3. Last Refreshed").getAsString());

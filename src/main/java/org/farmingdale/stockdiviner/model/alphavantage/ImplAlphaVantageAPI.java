@@ -1,4 +1,4 @@
-package org.farmingdale.stockdiviner.model;
+package org.farmingdale.stockdiviner.model.alphavantage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,7 +29,7 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
     }
 
     @Override
-    public StockData getMonthlyTimeSeries(String symbol) throws IOException {
+    public MonthlyStockData getMonthlyTimeSeries(String symbol) throws IOException {
         String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_MONTHLY&symbol=" + symbol + "&apikey=" + apiKey;
 
         Request request = new Request.Builder()
@@ -40,12 +40,12 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(StockData.class, new StockDataDeserializer())
-                    .registerTypeAdapter(StockData.MetaData.class, new MetaDataDeserializer())
-                    .registerTypeAdapter(StockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
+                    .registerTypeAdapter(MonthlyStockData.class, new StockDataDeserializer())
+                    .registerTypeAdapter(MonthlyStockData.MetaData.class, new MetaDataDeserializer())
+                    .registerTypeAdapter(MonthlyStockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
                     .create();
 
-            return gson.fromJson(response.body().charStream(), StockData.class);
+            return gson.fromJson(response.body().charStream(), MonthlyStockData.class);
         } catch (JsonSyntaxException e) {
             throw new IOException("Error parsing JSON", e);
         }

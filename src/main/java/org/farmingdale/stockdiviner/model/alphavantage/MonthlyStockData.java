@@ -1,10 +1,10 @@
-package org.farmingdale.stockdiviner.model;
+package org.farmingdale.stockdiviner.model.alphavantage;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
-public class StockData {
+public class MonthlyStockData {
     @SerializedName("Meta Data")
     private MetaData metaData;
 
