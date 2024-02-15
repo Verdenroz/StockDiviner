@@ -40,7 +40,7 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(MonthlyStockData.class, new StockDataDeserializer())
+                    .registerTypeAdapter(MonthlyStockData.class, new MonthlyStockDataDeserializer())
                     .registerTypeAdapter(MonthlyStockData.MetaData.class, new MetaDataDeserializer())
                     .registerTypeAdapter(MonthlyStockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
                     .create();
