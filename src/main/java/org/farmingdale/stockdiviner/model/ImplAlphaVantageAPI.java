@@ -27,7 +27,6 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
                 })
                 .build();
     }
-
     @Override
     public StockData getMonthlyTimeSeries(String symbol) throws IOException {
         String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_MONTHLY&symbol=" + symbol + "&apikey=" + apiKey;
@@ -41,7 +40,6 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
 
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(StockData.class, new StockDataDeserializer())
-                    .registerTypeAdapter(StockData.MetaData.class, new MetaDataDeserializer())
                     .registerTypeAdapter(StockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
                     .create();
 

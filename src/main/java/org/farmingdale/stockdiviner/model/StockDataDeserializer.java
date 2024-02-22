@@ -11,13 +11,8 @@ public class StockDataDeserializer implements JsonDeserializer<StockData> {
     public StockData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-
         StockData stockData = new StockData();
         Map<String, StockData.MonthlyTimeSeries> monthlyTimeSeries = new HashMap<>();
-
-        JsonObject metaDataObject = jsonObject.getAsJsonObject("Meta Data");
-        StockData.MetaData metaData = context.deserialize(metaDataObject, StockData.MetaData.class);
-        stockData.setMetaData(metaData);
 
         JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Monthly Time Series");
 
