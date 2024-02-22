@@ -4,10 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
+/**
+ * Class to represent the stock data returned from the AlphaVantage API
+ */
 public class StockData {
-    @SerializedName("Meta Data")
-    private MetaData metaData;
-
+    /**
+     * Map of dates to prices
+     */
     @SerializedName("Monthly Time Series")
     private Map<String, MonthlyTimeSeries> monthlyTimeSeries;
 
