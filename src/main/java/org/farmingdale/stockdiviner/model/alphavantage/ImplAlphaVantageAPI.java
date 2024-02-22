@@ -27,9 +27,8 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
                 })
                 .build();
     }
-
     @Override
-    public MonthlyStockData getMonthlyTimeSeries(String symbol) throws IOException {
+    public StockData getMonthlyTimeSeries(String symbol) throws IOException {
         String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_MONTHLY&symbol=" + symbol + "&apikey=" + apiKey;
 
         Request request = new Request.Builder()
@@ -40,12 +39,11 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(MonthlyStockData.class, new MonthlyStockDataDeserializer())
-                    .registerTypeAdapter(MonthlyStockData.MetaData.class, new MetaDataDeserializer())
-                    .registerTypeAdapter(MonthlyStockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
+                    .registerTypeAdapter(StockData.class, new StockDataDeserializer())
+                    .registerTypeAdapter(StockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
                     .create();
 
-            return gson.fromJson(response.body().charStream(), MonthlyStockData.class);
+            return gson.fromJson(response.body().charStream(), StockData.class);
         } catch (JsonSyntaxException e) {
             throw new IOException("Error parsing JSON", e);
         }

@@ -1,5 +1,5 @@
 import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
-import org.farmingdale.stockdiviner.model.alphavantage.MonthlyStockData;
+import org.farmingdale.stockdiviner.model.alphavantage.StockData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,16 +35,16 @@ public class AlphaVantageTest {
         String symbol = "META"; // Use a valid symbol for testing
 
         // Act
-        MonthlyStockData result = null;
+        StockData result = null;
         try {
             result = api.getMonthlyTimeSeries(symbol);
         } catch (IOException e) {
             e.printStackTrace();
             fail("IOException was thrown");
         }
-        Map<String, MonthlyStockData.MonthlyTimeSeries> timeSeries = result.getMonthlyTimeSeries();
+        Map<String, StockData.MonthlyTimeSeries> timeSeries = result.getMonthlyTimeSeries();
 
-        for (Map.Entry<String, MonthlyStockData.MonthlyTimeSeries> entry : timeSeries.entrySet()) {
+        for (Map.Entry<String, StockData.MonthlyTimeSeries> entry : timeSeries.entrySet()) {
             String date = entry.getKey();
             String closingPrice = entry.getValue().getClose();
 
