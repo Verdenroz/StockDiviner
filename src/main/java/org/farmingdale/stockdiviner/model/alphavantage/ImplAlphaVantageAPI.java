@@ -8,12 +8,28 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class ImplAlphaVantageAPI implements AlphaVantageAPI {
     private static volatile AlphaVantageAPI instance;
     private static final String ALPHA_VANTAGE_URL = "https://alpha-vantage.p.rapidapi.com";
-    private static final String apiKey = System.getProperty("alphaVantage.apiKey");
+    private static final String apiKey;
     private final OkHttpClient client;
+
+    // Load the API key from the properties file
+    static {
+        Properties properties = new Properties();
+        try (InputStream input = ImplAlphaVantageAPI.class.getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new IOException("Unable to find config.properties");
+            }
+            properties.load(input);
+            apiKey = properties.getProperty("alphaVantage.apiKey");
+        } catch (IOException ex) {
+            throw new ExceptionInInitializerError("Failed to load API key from properties file");
+        }
+    }
 
     private ImplAlphaVantageAPI() {
         this.client = new OkHttpClient.Builder()

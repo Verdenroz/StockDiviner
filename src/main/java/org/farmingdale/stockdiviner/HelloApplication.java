@@ -20,21 +20,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        // Load properties and set system property
-        Properties properties = new Properties();
-        try (InputStream input = HelloApplication.class.getClassLoader().getResourceAsStream("config.properties")) {
-            if (input == null) {
-                throw new IOException("Unable to find config.properties");
-            }
-            properties.load(input);
-            String apiKey = properties.getProperty("alphaVantage.apiKey");
-            System.setProperty("alphaVantage.apiKey", apiKey);
-            System.out.println("System property alphaVantage.apiKey set to: " + System.getProperty("alphaVantage.apiKey"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        }
-
         launch(args);
     }
 }
