@@ -8,4 +8,6 @@ module org.farmingdale.stockdiviner {
     opens org.farmingdale.stockdiviner to javafx.fxml;
     exports org.farmingdale.stockdiviner;
     exports org.farmingdale.stockdiviner.model.alphavantage;
+    exports org.farmingdale.stockdiviner.model.lunar;
+    exports org.farmingdale.stockdiviner.model.animals;
 }
