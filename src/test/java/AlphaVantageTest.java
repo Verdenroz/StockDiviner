@@ -1,3 +1,4 @@
+import org.farmingdale.stockdiviner.model.alphavantage.AlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.StockData;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,7 @@ public class AlphaVantageTest {
     @Test
     void getMonthlyTimeSeries() {
         // Arrange
-        ImplAlphaVantageAPI api = new ImplAlphaVantageAPI();
+        AlphaVantageAPI api = ImplAlphaVantageAPI.getInstance();
         String symbol = "META"; // Use a valid symbol for testing
 
         // Act
