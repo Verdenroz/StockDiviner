@@ -1,6 +1,7 @@
 import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
+import org.farmingdale.stockdiviner.model.financialmodeling.StockSearch;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -31,6 +32,29 @@ public class FinancialModelAPITest {
         System.out.println(result.getAvgVolume());
         // Assert
         assertNotNull(result, "The returned FullQuoteData object should not be null");
+    }
+
+    @Test
+    public void searchStockTest() {
+        // Arrange
+        FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
+        String input = "Apple"; // Use a valid input for testing
+
+        // Act
+        List<StockSearch> result = null;
+        try {
+            result = api.searchStock(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException was thrown");
+        }
+
+        for(StockSearch data : result) {
+            System.out.println(data.getName());
+        }
+        // Assert
+        assertNotNull(result, "The returned list should not be null");
+        assertFalse(result.isEmpty(), "The returned list should not be empty");
     }
 
     @Test
