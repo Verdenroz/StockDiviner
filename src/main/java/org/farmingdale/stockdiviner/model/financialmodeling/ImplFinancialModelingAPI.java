@@ -79,6 +79,26 @@ public class ImplFinancialModelingAPI implements FinancialModelingAPI {
     }
 
     @Override
+    public List<StockSearch> searchStock(String input) throws IOException {
+        String url = FINANCIAL_MODEL_API + "/search?query=" + input + "&limit=5&exchange=NASDAQ,NYSE,AMEX&apikey=" + apiKey;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(new TypeToken<List<StockSearch>>() {}.getType(), new StockSearchDeserializer())
+                    .create();
+
+            return gson.fromJson(response.body().charStream(), new TypeToken<List<StockSearch>>() {}.getType());
+        } catch (JsonSyntaxException e) {
+            throw new IOException("Error parsing JSON", e);
+        }
+    }
+
+    @Override
     public List<FullQuoteData> getSymbolList(String exchange) throws IOException {
         String url = FINANCIAL_MODEL_API + "/symbol/" + exchange + "?apikey=" + apiKey;
 
