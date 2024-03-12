@@ -50,7 +50,4 @@
          <Hyperlink fx:id="signUpLink" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       </children>
    </GridPane>
-
-    <Label fx:id="welcomeText" />
-    <Button onAction="#onHelloButtonClick" text="Hello!" />
 </VBox>
