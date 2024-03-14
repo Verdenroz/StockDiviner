@@ -63,7 +63,7 @@
          <children>
             <HBox prefHeight="37.0" prefWidth="339.0" stylesheets="@styles.css">
                <children>
-                  <TextField prefHeight="39.0" prefWidth="407.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
+                  <TextField fx:id="searchBarTextField" onKeyTyped="#printMessage" prefHeight="39.0" prefWidth="407.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
                      <font>
                         <Font size="18.0" />
                      </font>
