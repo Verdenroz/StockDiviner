@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.SearchController">
+   <top>
+      <HBox prefHeight="60.0" prefWidth="200.0" spacing="100.0" styleClass="green-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="438.0">
+               <children>
+                  <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8-user-30.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="49.0" prefWidth="124.0" text="User Name" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="58.0" prefWidth="530.0" text="Stock Diviner" textFill="#fffefe">
+               <font>
+                  <Font name="Berlin Sans FB" size="46.0" />
+               </font>
+            </Label>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="56.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="112.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
+                     <font>
+                        <Font name="Berlin Sans FB" size="12.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="blue-background" />
+                        <String fx:value="border" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="830.0" prefWidth="339.0" styleClass="grey-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="37.0" prefWidth="339.0" stylesheets="@styles.css">
+               <children>
+                  <TextField prefHeight="46.0" prefWidth="347.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="58.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="white-background">
+                     <image>
+                        <Image url="@images/icons8-search-50.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <styleClass>
+                  <String fx:value="white-background" />
+                  <String fx:value="round-layout" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+</BorderPane>
