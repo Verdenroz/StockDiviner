@@ -10,6 +10,15 @@ public class FirebaseTest {
         UserRecord user = auth.createUser("df@tt.com", "df", "password");
         assert user.getEmail().equals("df@tt.com");
         System.out.println(user.getDisplayName());
+
+        UserRecord duplicateUser = auth.createUser("df@tt.com", "df", "password");
+        assert duplicateUser == null;
+
+        UserRecord duplicateUsername = auth.createUser("df@s.com", "df", "password2");
+        assert duplicateUsername == null;
+
+        UserRecord duplicateEmail = auth.createUser("df@tt.com", "df2", "password3");
+        assert duplicateEmail == null;
     }
 
     @Test

@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Handles user authentication and creation in Firebase Authentication and Firestore
+ */
 public class FirebaseAuthentication {
     private static volatile FirebaseAuthentication instance;
     private static FirebaseAuth auth;
@@ -21,6 +24,9 @@ public class FirebaseAuthentication {
         auth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Get instance of FirebaseAuthentication
+     */
     public static FirebaseAuthentication getInstance() {
         if (instance == null) {
             synchronized (FirebaseAuthentication.class) {
@@ -32,7 +38,18 @@ public class FirebaseAuthentication {
         return instance;
     }
 
+    /**
+     * Create a new user in Firebase Authentication and Firestore
+     * @param email the email of the user
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return the UserRecord of the created user or null if email or username already used
+     */
     public UserRecord createUser(String email, String username, String password){
+        // Check if a username or email already exists in Firestore
+        if (db.usernameExists(username) || db.emailExists(email)) {
+            return null;
+        }
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                 .setEmail(email)
                 .setEmailVerified(false)
@@ -43,7 +60,7 @@ public class FirebaseAuthentication {
         try {
             userRecord = auth.createUser(request);
         } catch (FirebaseAuthException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
         CollectionReference userCollection = db.getUsersCollection();
@@ -62,6 +79,12 @@ public class FirebaseAuthentication {
         return userRecord;
     }
 
+    /**
+     * Authenticate a user by matching inputs with the stored user records in FireStore
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return the UserRecord of the authenticated user or null if not found
+     */
     public UserRecord authenticateUser(String username, String password) {
         try {
             DocumentSnapshot document = db.getUserRecord(username);
