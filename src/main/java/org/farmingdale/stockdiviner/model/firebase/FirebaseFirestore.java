@@ -1,6 +1,8 @@
 package org.farmingdale.stockdiviner.model.firebase;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -44,6 +46,19 @@ public class FirebaseFirestore {
             }
         }
         return instance;
+    }
+
+    public CollectionReference getUsersCollection(){
+        return db.collection("users");
+    }
+
+    public DocumentSnapshot getUserRecord(String username){
+        try{
+            return db.collection("users").document(username).get().get();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
