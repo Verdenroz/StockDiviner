@@ -44,7 +44,7 @@
             </Label>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="logOutButton" layoutX="56.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="112.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
+                  <Button layoutX="56.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="112.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
                      <font>
                         <Font name="Berlin Sans FB" size="12.0" />
                      </font>
@@ -59,19 +59,16 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="830.0" prefWidth="477.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+      <VBox prefHeight="830.0" prefWidth="445.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="37.0" prefWidth="339.0" stylesheets="@styles.css">
                <children>
-                  <TextField fx:id="searchBarTextField" prefHeight="39.0" prefWidth="819.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
+                  <TextField prefHeight="39.0" prefWidth="407.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <ImageView fitHeight="58.0" fitWidth="35.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="white-background">
+                  <ImageView fitHeight="58.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="white-background">
                      <image>
                         <Image url="@images/icons8-search-50.png" />
                      </image>
@@ -86,31 +83,34 @@
                </VBox.margin>
             </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </left>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="830.0" prefWidth="486.0" spacing="50.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="830.0" prefWidth="556.0" spacing="50.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="89.0" prefWidth="399.0">
                <children>
-                  <Label layoutX="177.0" layoutY="45.0" text="Indicators">
+                  <Label layoutX="212.0" layoutY="38.0" text="Indicators">
                      <font>
                         <Font name="Berlin Sans FB" size="33.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <Button fx:id="ChineseNewYearsButton" mnemonicParsing="false" onAction="#printMessage" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" stylesheets="@styles.css" text="Chinese New Years" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" stylesheets="@styles.css" text="Chinese New Years" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="zodiacSignsButton" mnemonicParsing="false" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Zodiac Signs" textAlignment="CENTER" textFill="#fcfcfc">
+            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Zodiac Signs" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="lunarPhasesButton" mnemonicParsing="false" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Lunar Phases" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Lunar Phases" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
