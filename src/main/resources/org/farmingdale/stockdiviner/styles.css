@@ -1,0 +1,29 @@
+.green-background{
+    -fx-background-color: #0e783f;
+}
+.blue-background{
+    -fx-background-color: #1301e1;
+}
+.round-layout{
+    -fx-background-radius: 50;
+
+}
+.border{
+    -fx-border-color: black;
+      -fx-border-width: 2;
+}
+.grey-background{
+    -fx-background-color: #d9d9d9;
+}
+.transparent-background{
+    -fx-background-color: transparent;
+}
+.white-background{
+    -fx-background-color: white;
+}
+.greenish-background{
+    -fx-background-color: #ddffed;
+}
+.black-background{
+    -fx-background-color: black;
+}
