@@ -3,6 +3,7 @@ module org.farmingdale.stockdiviner {
     requires javafx.fxml;
     requires okhttp3;
     requires com.google.gson;
+    requires org.controlsfx.controls;
 
 
     opens org.farmingdale.stockdiviner to javafx.fxml;
