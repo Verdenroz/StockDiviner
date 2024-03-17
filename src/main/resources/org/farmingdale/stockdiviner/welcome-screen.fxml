@@ -46,8 +46,8 @@
             </font>
          </TextField>
          <TextField fx:id="welcomePwd" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-         <Button fx:id="loginButton" maxWidth="100.0" mnemonicParsing="false" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-         <Hyperlink fx:id="signUpLink" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+         <Button fx:id="loginButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+         <Hyperlink fx:id="signUpLink" onAction="#onSignUpLinkClick" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       </children>
    </GridPane>
 </VBox>
