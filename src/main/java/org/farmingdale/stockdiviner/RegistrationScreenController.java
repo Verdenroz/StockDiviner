@@ -20,7 +20,7 @@ public class RegistrationScreenController {
 
     @FXML
     protected void onRegisterButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registration-screen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
 
