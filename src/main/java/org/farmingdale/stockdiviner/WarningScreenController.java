@@ -12,13 +12,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WarningScreenController {
+    private Stage stage;
     @FXML
     public Button warnCloseButton;
 
     @FXML
-    public void onWarnCloseButtonClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
+    public void onWarnCloseButtonClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Search.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }
