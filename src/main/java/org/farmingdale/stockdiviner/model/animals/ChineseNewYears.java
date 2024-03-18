@@ -4,6 +4,21 @@ package org.farmingdale.stockdiviner.model.animals;
  * Class whose only purpose is to return a chinese new year animal given a year
  */
 public class ChineseNewYears {
+    private static volatile ChineseNewYears instance;
+
+    private ChineseNewYears(){}
+
+    public static ChineseNewYears getInstance() {
+        if (instance == null) {
+            synchronized (ChineseNewYears.class) {
+                if (instance == null) {
+                    instance = new ChineseNewYears();
+                }
+            }
+        }
+        return instance;
+    }
+
     public ChineseAnimals getChineseZodiac(int year) {
         int zodiac = year % 12;
         return switch (zodiac) {

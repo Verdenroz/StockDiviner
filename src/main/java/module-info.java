@@ -12,10 +12,11 @@ module org.farmingdale.stockdiviner {
 
 
     opens org.farmingdale.stockdiviner to javafx.fxml;
+    opens org.farmingdale.stockdiviner.model.financialmodeling to com.google.gson;
     exports org.farmingdale.stockdiviner;
     exports org.farmingdale.stockdiviner.model.alphavantage;
     exports org.farmingdale.stockdiviner.model.lunar;
     exports org.farmingdale.stockdiviner.model.animals;
+    exports org.farmingdale.stockdiviner.model.financialmodeling;
     exports org.farmingdale.stockdiviner.model.firebase;
-
 }

@@ -72,6 +72,12 @@
             <version>1.5.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -94,7 +100,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.farmingdale.stockdiviner/org.farmingdale.stockdiviner.HelloApplication
+                            <mainClass>org.farmingdale.stockdiviner/org.farmingdale.stockdiviner.WelcomeScreen
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
