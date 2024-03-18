@@ -1,4 +1,5 @@
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
+import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 public class LunarCalculatorTest {
     @Test
     public void testGetLunarPhase() throws IOException {
-        ImplLunarCalculatorAPI api = new ImplLunarCalculatorAPI();
+        LunarCalculatorAPI api = ImplLunarCalculatorAPI.getInstance();
         //These are known dates for the lunar phases in 2021
         LunarPhase fullMoon = api.getLunarPhase(LocalDate.of(2021, 1, 28));
         LunarPhase newMoon = api.getLunarPhase(LocalDate.of(2021, 1, 13));

@@ -15,12 +15,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImplLunarCalculatorAPI implements LunarCalculatorAPI {
+    private static volatile LunarCalculatorAPI instance;
     private static final String LUNAR_CALCULATOR_URL = "https://aa.usno.navy.mil";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
     private final OkHttpClient client;
 
-    public ImplLunarCalculatorAPI() {
+    private ImplLunarCalculatorAPI() {
         this.client = new OkHttpClient();
+    }
+
+    /**
+     * Returns the instance of the LunarCalculatorAPI
+     */
+    public static LunarCalculatorAPI getInstance() {
+        if (instance == null) {
+            synchronized (ImplLunarCalculatorAPI.class) {
+                if (instance == null) {
+                    instance = new ImplLunarCalculatorAPI();
+                }
+            }
+        }
+        return instance;
     }
 
     @Override

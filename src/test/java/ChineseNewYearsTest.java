@@ -9,7 +9,7 @@ public class ChineseNewYearsTest {
     @Test
     public void getChineseZodiac() {
         // Arrange
-        ChineseNewYears chineseNewYears = new ChineseNewYears();
+        ChineseNewYears chineseNewYears = ChineseNewYears.getInstance();
 
         // Act and Assert
         assertEquals(ChineseAnimals.MONKEY, chineseNewYears.getChineseZodiac(2016), "2016 is the year of the Monkey");
