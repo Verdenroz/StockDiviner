@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WarningScreenController {
-    private Stage stage;
     @FXML
     public Button warnCloseButton;
 
@@ -22,7 +21,7 @@ public class WarningScreenController {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
