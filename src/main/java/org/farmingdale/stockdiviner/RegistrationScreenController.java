@@ -17,6 +17,7 @@ public class RegistrationScreenController {
     public TextField passwordField;
     public TextField reEnterPasswordField;
     public Button registerButton;
+    public TextField emailTextField;
 
     @FXML
     protected void onRegisterButtonClick(ActionEvent event) throws IOException {
