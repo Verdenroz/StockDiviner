@@ -18,5 +18,6 @@ module org.farmingdale.stockdiviner {
     exports org.farmingdale.stockdiviner.model.lunar;
     exports org.farmingdale.stockdiviner.model.animals;
     exports org.farmingdale.stockdiviner.model.financialmodeling;
+    exports org.farmingdale.stockdiviner.model.zodiac;
     exports org.farmingdale.stockdiviner.model.firebase;
 }
