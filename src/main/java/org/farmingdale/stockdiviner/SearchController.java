@@ -9,6 +9,8 @@ import javafx.scene.control.ToggleButton;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
+import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
+import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
@@ -38,6 +40,8 @@ public class SearchController {
     @FXML
     private ToggleButton zodiacSignsButton;
     private AutoCompletionBinding<String> autoCompletionBinding;
+
+    FinancialModelingAPI stockSearch = ImplFinancialModelingAPI.getInstance();
     private String[] possibleSuggestions = {"Apple APPL",
                                             "Microsof MSFT",
             "Google GOOGL",
