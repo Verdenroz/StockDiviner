@@ -1,10 +1,8 @@
-import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
-import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
-import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
-import org.farmingdale.stockdiviner.model.financialmodeling.StockSearch;
+import org.farmingdale.stockdiviner.model.financialmodeling.*;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,6 +53,29 @@ public class FinancialModelAPITest {
         // Assert
         assertNotNull(result, "The returned list should not be null");
         assertFalse(result.isEmpty(), "The returned list should not be empty");
+    }
+
+    @Test
+    public void getEODTest(){
+        // Arrange
+        FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
+        String symbol = "AAPL"; // Use a valid symbol for testing
+        LocalDate date = LocalDate.of(2024, 3, 23);
+
+        // Act
+        EOD result = null;
+        try {
+            result = api.getEOD(symbol, date);
+            //HistoricalData is a single element list with only the closing price
+            System.out.println(result.getClose());
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException was thrown");
+        }
+
+        // Assert
+        assertNotNull(result, "The returned list should not be null");
+        assertFalse(result.getHistorical().isEmpty(), "The returned list should not be empty");
     }
 
     @Test
