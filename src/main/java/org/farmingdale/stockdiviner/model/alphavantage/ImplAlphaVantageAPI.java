@@ -9,7 +9,10 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class ImplAlphaVantageAPI implements AlphaVantageAPI {
     private static volatile AlphaVantageAPI instance;
@@ -71,7 +74,17 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
                     .registerTypeAdapter(StockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
                     .create();
 
-            return gson.fromJson(response.body().charStream(), StockData.class);
+            StockData stockData = gson.fromJson(response.body().charStream(), StockData.class);
+
+            // Sort the timeSeries map by keys (dates) in descending order
+            Map<String, StockData.MonthlyTimeSeries> sortedTimeSeries = stockData.getMonthlyTimeSeries().entrySet().stream()
+                    .sorted(Map.Entry.<String, StockData.MonthlyTimeSeries>comparingByKey().reversed())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+            // Set the sorted map back to the stockData object
+            stockData.setMonthlyTimeSeries(sortedTimeSeries);
+
+            return stockData;
         } catch (JsonSyntaxException e) {
             throw new IOException("Error parsing JSON", e);
         }
