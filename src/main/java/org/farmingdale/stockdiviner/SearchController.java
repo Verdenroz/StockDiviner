@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.util.Duration;
@@ -28,9 +29,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SearchController {
-
+    ChangeView changeView = ChangeView.getInstance();
     @FXML
     private ToggleButton ChineseNewYearsButton;
+
+    @FXML
+    private Label userNameLabel;
 
     @FXML
     private Button logOutButton;
@@ -103,28 +107,31 @@ public class SearchController {
         }
     }
 
-    public void onLogOutButtonClicked(ActionEvent event) {
-
+    public void onLogOutButtonClicked(ActionEvent event) throws IOException{
+        changeView.logout(event);
     }
 
 
-    public void onChineseToggleSelected(ActionEvent event) {
+    public void onChineseToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(ChineseNewYearsButton);
         SharedModel.getInstance().selectApi(ApiType.CHINESE_NEW_YEARS);
+
+       // changeView.changeViewTo("Test", event);
 
     }
 
     public void onLunarToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(lunarPhasesButton);
+        SharedModel.getInstance().selectApi(ApiType.LUNAR_PHASES);
 
     }
 
     public void onZodiacToggleSelected(ActionEvent event) {
         resetButtonStyles();
         changeColorSelected(zodiacSignsButton);
-        // Additional functionality for Zodiac can be added here
+        SharedModel.getInstance().selectApi(ApiType.ZODIAC_SIGNS);
     }
 
     public void changeColorSelected(ToggleButton button) {
