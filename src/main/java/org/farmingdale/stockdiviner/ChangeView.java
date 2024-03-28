@@ -21,13 +21,23 @@ public class ChangeView {
     }
 
     public void changeViewTo(String fileName, ActionEvent event) throws IOException {
+        fxmlLoader = new FXMLLoader(getClass().getResource(fileName + ".fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
 
-            fxmlLoader = new FXMLLoader(getClass().getResource(fileName + ".fxml"));
-            root = fxmlLoader.load();
-            scene = new Scene(root);
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
 
+        // Maximize the window instead of setting it to full screen
+       // stage.setMaximized(true);
+
+        // The window will be resizable by default, but you can explicitly set it if you want
+        stage.setResizable(true);
+
+        stage.show();
     }
+
+     public void logout(ActionEvent event) throws IOException {
+        changeViewTo("welcome-screen", event);
+}
 }
