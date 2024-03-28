@@ -103,6 +103,10 @@ public class SearchController {
         }
     }
 
+    public void onLogOutButtonClicked(ActionEvent event) {
+
+    }
+
 
     public void onChineseToggleSelected(ActionEvent event) {
         resetButtonStyles();

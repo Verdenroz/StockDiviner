@@ -46,7 +46,7 @@
             </Label>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="56.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="112.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
+                  <Button layoutX="42.0" layoutY="16.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="29.0" prefWidth="112.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
                      <font>
                         <Font name="Berlin Sans FB" size="12.0" />
                      </font>
