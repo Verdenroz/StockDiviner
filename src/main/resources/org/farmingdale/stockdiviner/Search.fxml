@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -12,10 +13,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1260.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.SearchController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="900.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.SearchController">
    <top>
       <HBox prefHeight="60.0" prefWidth="200.0" spacing="100.0" styleClass="green-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -61,11 +63,60 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="830.0" prefWidth="445.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="48.0" prefWidth="177.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <bottom>
+      <VBox prefHeight="282.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="37.0" prefWidth="339.0" stylesheets="@styles.css">
+            <AnchorPane prefHeight="134.0" prefWidth="900.0">
                <children>
-                  <TextField fx:id="searchBarTextField" onKeyTyped="#setupSearchBar" prefHeight="39.0" prefWidth="407.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
+                  <Label layoutX="384.0" layoutY="58.0" text="Indicators">
+                     <font>
+                        <Font name="Berlin Sans FB" size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="191.0" />
+                  <ToggleButton fx:id="ChineseNewYearsButton" mnemonicParsing="false" onAction="#onChineseToggleSelected" prefHeight="86.0" prefWidth="206.0" styleClass="black-background" text="Chinese New Years" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="indicators" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="lunarPhasesButton" mnemonicParsing="false" onAction="#onLunarToggleSelected" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Lunar Phases" textFill="WHITE" toggleGroup="$indicators">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton fx:id="zodiacSignsButton" mnemonicParsing="false" onAction="#onZodiacToggleSelected" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Zodiac Sings" textFill="WHITE" toggleGroup="$indicators">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <VBox prefHeight="394.0" prefWidth="522.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="507.0" stylesheets="@styles.css">
+               <children>
+                  <TextField fx:id="searchBarTextField" onKeyTyped="#setupSearchBar" prefHeight="40.0" prefWidth="381.0" promptText="Search Bar" styleClass="transparent-background" stylesheets="@styles.css">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -75,55 +126,18 @@
                         <Image url="@images/icons8-search-50.png" />
                      </image>
                   </ImageView>
+                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="107.0" text="Pick Stock" />
                </children>
                <styleClass>
                   <String fx:value="white-background" />
                   <String fx:value="round-layout" />
                </styleClass>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
             </HBox>
+            <ListView prefHeight="229.0" prefWidth="522.0" styleClass="round-layout" stylesheets="@styles.css" />
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </VBox>
-   </left>
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="830.0" prefWidth="556.0" spacing="50.0" stylesheets="@styles.css" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="89.0" prefWidth="399.0">
-               <children>
-                  <Label layoutX="212.0" layoutY="38.0" text="Indicators">
-                     <font>
-                        <Font name="Berlin Sans FB" size="33.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <ToggleButton fx:id="ChineseNewYearsButton" mnemonicParsing="false" onAction="#onChineseToggleSelected" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Chinese New Years" textFill="WHITE">
-               <toggleGroup>
-                  <ToggleGroup fx:id="indicators" />
-               </toggleGroup>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton fx:id="zodiacSignsButton" mnemonicParsing="false" onAction="#onZodiacToggleSelected" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Zodiac Sings" textFill="WHITE" toggleGroup="$indicators">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton fx:id="lunarPhasesButton" mnemonicParsing="false" onAction="#onLunarToggleSelected" prefHeight="86.0" prefWidth="179.0" styleClass="black-background" text="Lunar Phases" textFill="WHITE" toggleGroup="$indicators">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </right>
+   </center>
 </BorderPane>
