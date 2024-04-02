@@ -4,18 +4,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
 import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
+import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.StockSearch;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
@@ -47,63 +47,87 @@ public class SearchController {
 
     @FXML
     private ToggleButton zodiacSignsButton;
-    private AutoCompletionBinding<String> autoCompletionBinding;
+
+    @FXML
+    private ListView<String> searchResultsListView;
+
+    @FXML
+     private Label stockNameLabel;
+
 
     FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
 
-    private PauseTransition pause = new PauseTransition(Duration.seconds(1)); // 1 second delay
-
-
-    private String lastQueriedText = "";
-    private Timeline timeline = new Timeline();
-
-    private static final int MIN_CHAR_THRESHOLD = 3;
-
-    public void setupSearchBar() {
-        searchBarTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() < MIN_CHAR_THRESHOLD) {
-                clearAutoCompletionBinding();
-                return;
-            }
-
-            if (timeline != null) {
-                timeline.stop();
-            }
-            timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-                if (!newValue.equals(lastQueriedText)) {
-                    fetchAndDisplaySuggestions(newValue);
-                }
-            }));
-            timeline.playFromStart();
-        });
+    public void setTheUserNameLabel(String userName){
+        userNameLabel.setText(userName);
     }
 
-    private void fetchAndDisplaySuggestions(String input) {
-        lastQueriedText = input;
+//populate a list of stock symbols
+    public void populateListWithStocksWhenType(){
+        searchResultsListView.setVisible(true);
+        ObservableList<String> stockSymbols = searchResultsListView.getItems();
 
-        new Thread(() -> {
+        //searchBarTextField.addEventHandler(KeyEvent.KEY_RELEASED, event -> populateListWithStocksWhenType());
+
+        stockSymbols.clear(); // Clear the list before adding new items
+        String input = searchBarTextField.getText();
+
+
+        // Execute the search only if the input is not empty
+        if (!input.isEmpty()) {
+            List<StockSearch> result = null;
             try {
-                List<StockSearch> result = api.searchStock(input);
-                Set<String> suggestions = result.stream().map(StockSearch::getName).collect(Collectors.toSet());
-
-                Platform.runLater(() -> {
-                    // Clear existing binding before creating a new one
-                    clearAutoCompletionBinding();
-
-                    // Create a new binding with the latest suggestions
-                    autoCompletionBinding = TextFields.bindAutoCompletion(searchBarTextField, suggestions);
-                    autoCompletionBinding.setMaxWidth(searchBarTextField.getWidth());
-                });
+                result = api.searchStock(input);
+                if (result != null) {
+                    for (StockSearch data : result) {
+                        stockSymbols.add(data.getName());
+                        System.out.println(data.getName());
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                // Handle exceptions or show error messages if necessary
             }
-        }).start();
+        }// assertFalse(result.isEmpty(), "The returned list should not be empty");
+
     }
 
-    private synchronized void clearAutoCompletionBinding() {
-        if (autoCompletionBinding != null) {
-            autoCompletionBinding.dispose(); // Dispose of the previous binding
-            autoCompletionBinding = null; // Ensure the reference is cleared
+    public void fromListCellToTextField(){
+
+        searchResultsListView.setOnMouseClicked(event -> {
+            String selectedItem = searchResultsListView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null && !selectedItem.isEmpty()) {
+                searchBarTextField.setText(selectedItem);
+                searchResultsListView.getItems().clear();
+                searchResultsListView.setVisible(false);// Clear the ListView after selection
+            }
+        });
+
+    }
+
+
+
+public void onPickStockButtonClicked(ActionEvent event) throws IOException {
+        String symbol = searchBarTextField.getText();
+
+        stockNameLabel.setText(symbol);
+        searchBarTextField.clear();
+        stockNameLabel.setVisible(true);
+        searchResultsListView.setVisible(false);
+
+        FullQuoteData result = null;
+
+        try {
+            result = api.getFullQuoteData(api.searchStock(symbol).get(0).getSymbol());
+            if (result != null) {
+                System.out.println(result.getName());
+                System.out.println(result.getChange());
+                System.out.println(result.getChangesPercentage());
+                System.out.println(result.getPreviousClose());
+                System.out.println(result.getAvgVolume());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exceptions or show error messages if necessary
         }
     }
 
@@ -117,7 +141,7 @@ public class SearchController {
         changeColorSelected(ChineseNewYearsButton);
         SharedModel.getInstance().selectApi(ApiType.CHINESE_NEW_YEARS);
 
-       // changeView.changeViewTo("Test", event);
+        changeView.changeViewTo("Test", event);
 
     }
 
@@ -125,13 +149,14 @@ public class SearchController {
         resetButtonStyles();
         changeColorSelected(lunarPhasesButton);
         SharedModel.getInstance().selectApi(ApiType.LUNAR_PHASES);
-
+        changeView.changeViewTo("Test", event);
     }
 
-    public void onZodiacToggleSelected(ActionEvent event) {
+    public void onZodiacToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(zodiacSignsButton);
         SharedModel.getInstance().selectApi(ApiType.ZODIAC_SIGNS);
+        changeView.changeViewTo("Test", event);
     }
 
     public void changeColorSelected(ToggleButton button) {
