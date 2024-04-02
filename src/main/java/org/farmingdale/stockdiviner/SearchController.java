@@ -1,32 +1,19 @@
 package org.farmingdale.stockdiviner;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
 import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
 import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.StockSearch;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalulator;
 
 import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SearchController {
     ChangeView changeView = ChangeView.getInstance();
@@ -54,6 +41,12 @@ public class SearchController {
     @FXML
      private Label stockNameLabel;
 
+    private SharedService sharedService ;
+
+    public SearchController() {
+        this.sharedService = SharedService.getInstance();
+    }
+
 
     FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
 
@@ -65,8 +58,6 @@ public class SearchController {
     public void populateListWithStocksWhenType(){
         searchResultsListView.setVisible(true);
         ObservableList<String> stockSymbols = searchResultsListView.getItems();
-
-        //searchBarTextField.addEventHandler(KeyEvent.KEY_RELEASED, event -> populateListWithStocksWhenType());
 
         stockSymbols.clear(); // Clear the list before adding new items
         String input = searchBarTextField.getText();
@@ -110,54 +101,104 @@ public void onPickStockButtonClicked(ActionEvent event) throws IOException {
         String symbol = searchBarTextField.getText();
 
         stockNameLabel.setText(symbol);
-        searchBarTextField.clear();
-        stockNameLabel.setVisible(true);
-        searchResultsListView.setVisible(false);
-
-        FullQuoteData result = null;
-
-        try {
-            result = api.getFullQuoteData(api.searchStock(symbol).get(0).getSymbol());
-            if (result != null) {
-                System.out.println(result.getName());
-                System.out.println(result.getChange());
-                System.out.println(result.getChangesPercentage());
-                System.out.println(result.getPreviousClose());
-                System.out.println(result.getAvgVolume());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle exceptions or show error messages if necessary
+        if(isTheStockNameEmpty(stockNameLabel)!=false){
+            stockNameLabel.setVisible(false);
         }
+        else {
+            // isTheStockNameEmpty(stockNameLabel);
+            searchBarTextField.clear();
+
+            stockNameLabel.setVisible(true);
+            searchResultsListView.setVisible(false);
+
+            FullQuoteData result = null;
+
+            try {
+                result = api.getFullQuoteData(api.searchStock(symbol).get(0).getSymbol());
+                if (result != null) {
+                    System.out.println(result.getName());
+                    System.out.println(result.getChange());
+                    System.out.println(result.getChangesPercentage());
+                    System.out.println(result.getPreviousClose());
+                    System.out.println(result.getAvgVolume());
+
+                    sharedService.setData(result);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle exceptions or show error messages if necessary
+            }
+        }
+    }
+    public boolean isTheStockNameEmpty(Label label){
+        if(label.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Stock Not Selected");
+            alert.setContentText("Please select a stock before proceeding");
+            alert.showAndWait();
+            return true;
+        }
+        else{
+            makeTheToggleButtonsAvailable();
+        }
+
+        return false;
+
     }
 
     public void onLogOutButtonClicked(ActionEvent event) throws IOException{
         changeView.logout(event);
     }
+//if Lunar button is selected, set the shared service to the LunarCalculatorAPI
+//if Chinese button is selected, set the shared service to the ChineseNewYears
+//if Zodiac button is selected, set the shared service to the ZodiacCalculator
+
+public void makeTheToggleButtonsAvailable(){
+        ChineseNewYearsButton.setDisable(false);
+        lunarPhasesButton.setDisable(false);
+        zodiacSignsButton.setDisable(false);
+}
+
+public void whatIsSelected(ActionEvent event)throws IOException{
+    if(ChineseNewYearsButton.isSelected()){
+        System.out.println("Chinese New Years is selected");
+        onChineseToggleSelected(event);
+    }
+    if(lunarPhasesButton.isSelected()){
+        System.out.println("Lunar Phases is selected");
+        onLunarToggleSelected(event);
+    }
+    if(zodiacSignsButton.isSelected()){
+        System.out.println("Zodiac Signs is selected");
+        onZodiacToggleSelected(event);
+    }
+}
+
 
 
     public void onChineseToggleSelected(ActionEvent event) throws IOException {
-        resetButtonStyles();
-        changeColorSelected(ChineseNewYearsButton);
-        SharedModel.getInstance().selectApi(ApiType.CHINESE_NEW_YEARS);
-
-        changeView.changeViewTo("Test", event);
-
+           ChineseNewYearsButton.setDisable(false);
+            resetButtonStyles();
+            changeColorSelected(ChineseNewYearsButton);
+            sharedService.setChineseNewYears(ChineseNewYears.getInstance());
+            changeView.changeViewTo("OtherView", event);
     }
 
     public void onLunarToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(lunarPhasesButton);
-        SharedModel.getInstance().selectApi(ApiType.LUNAR_PHASES);
-        changeView.changeViewTo("Test", event);
+        sharedService.setLunarPhanses(ImplLunarCalculatorAPI.getInstance());
+        changeView.changeViewTo("OtherView", event);
     }
 
     public void onZodiacToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(zodiacSignsButton);
-        SharedModel.getInstance().selectApi(ApiType.ZODIAC_SIGNS);
+        sharedService.setZodiacCalulator(ZodiacCalulator.getInstance());
         changeView.changeViewTo("Test", event);
     }
+
 
     public void changeColorSelected(ToggleButton button) {
         // No need to check if button is selected here as this method is called after a button is selected
