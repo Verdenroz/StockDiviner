@@ -41,6 +41,7 @@
             <TextField fx:id="reEnterPasswordField" maxWidth="175.0" promptText="Reenter Password" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
             <Button fx:id="registerButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="REGISTER" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
             <TextField fx:id="emailTextField" maxWidth="175.0" promptText="Email" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label fx:id="NotificationText" alignment="CENTER" contentDisplay="CENTER" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>
