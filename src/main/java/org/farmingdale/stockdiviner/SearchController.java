@@ -182,21 +182,21 @@ public void whatIsSelected(ActionEvent event)throws IOException{
             resetButtonStyles();
             changeColorSelected(ChineseNewYearsButton);
             sharedService.setChineseNewYears(ChineseNewYears.getInstance());
-            changeView.changeViewTo("OtherView", event);
+            changeView.changeViewTo("info-screen", event);
     }
 
     public void onLunarToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(lunarPhasesButton);
         sharedService.setLunarPhanses(ImplLunarCalculatorAPI.getInstance());
-        changeView.changeViewTo("OtherView", event);
+        changeView.changeViewTo("info-screen", event);
     }
 
     public void onZodiacToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(zodiacSignsButton);
         sharedService.setZodiacCalulator(ZodiacCalulator.getInstance());
-        changeView.changeViewTo("Test", event);
+        changeView.changeViewTo("info-screen", event);
     }
 
 
