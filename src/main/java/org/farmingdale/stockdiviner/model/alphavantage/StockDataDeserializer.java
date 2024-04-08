@@ -3,6 +3,8 @@ package org.farmingdale.stockdiviner.model.alphavantage;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,13 +17,14 @@ public class StockDataDeserializer implements JsonDeserializer<StockData> {
         JsonObject jsonObject = json.getAsJsonObject();
 
         StockData stockData = new StockData();
-        Map<String, StockData.MonthlyTimeSeries> monthlyTimeSeries = new HashMap<>();
+        Map<LocalDate, StockData.MonthlyTimeSeries> monthlyTimeSeries = new HashMap<>();
 
         JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Monthly Time Series");
 
         for (Map.Entry<String, JsonElement> entry : timeSeriesObject.entrySet()) {
             StockData.MonthlyTimeSeries dataPoint = context.deserialize(entry.getValue(), StockData.MonthlyTimeSeries.class);
-            monthlyTimeSeries.put(entry.getKey(), dataPoint);
+            LocalDate date = LocalDate.parse(entry.getKey(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            monthlyTimeSeries.put(date, dataPoint);
         }
 
         stockData.setMonthlyTimeSeries(monthlyTimeSeries);

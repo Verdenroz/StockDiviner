@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Properties;
 
@@ -43,10 +44,10 @@ public class AlphaVantageTest {
             e.printStackTrace();
             fail("IOException was thrown");
         }
-        Map<String, StockData.MonthlyTimeSeries> timeSeries = result.getMonthlyTimeSeries();
+        Map<LocalDate, StockData.MonthlyTimeSeries> timeSeries = result.getMonthlyTimeSeries();
 
-        for (Map.Entry<String, StockData.MonthlyTimeSeries> entry : timeSeries.entrySet()) {
-            String date = entry.getKey();
+        for (Map.Entry<LocalDate, StockData.MonthlyTimeSeries> entry : timeSeries.entrySet()) {
+            LocalDate date = entry.getKey();
             String closingPrice = entry.getValue().getClose();
 
             System.out.println("Date: " + date + ", Closing Price: " + closingPrice);

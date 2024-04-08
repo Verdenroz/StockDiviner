@@ -9,6 +9,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.Properties;
@@ -77,8 +78,8 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
             StockData stockData = gson.fromJson(response.body().charStream(), StockData.class);
 
             // Sort the timeSeries map by keys (dates) in descending order
-            Map<String, StockData.MonthlyTimeSeries> sortedTimeSeries = stockData.getMonthlyTimeSeries().entrySet().stream()
-                    .sorted(Map.Entry.<String, StockData.MonthlyTimeSeries>comparingByKey().reversed())
+            Map<LocalDate, StockData.MonthlyTimeSeries> sortedTimeSeries = stockData.getMonthlyTimeSeries().entrySet().stream()
+                    .sorted(Map.Entry.<LocalDate, StockData.MonthlyTimeSeries>comparingByKey().reversed())
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
             // Set the sorted map back to the stockData object

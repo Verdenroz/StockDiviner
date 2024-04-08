@@ -2,6 +2,7 @@ package org.farmingdale.stockdiviner.model.alphavantage;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -12,13 +13,13 @@ public class StockData {
      * Map of dates to prices
      */
     @SerializedName("Monthly Time Series")
-    private Map<String, MonthlyTimeSeries> monthlyTimeSeries;
+    private Map<LocalDate, MonthlyTimeSeries> monthlyTimeSeries;
 
-    public Map<String, MonthlyTimeSeries> getMonthlyTimeSeries() {
+    public Map<LocalDate, MonthlyTimeSeries> getMonthlyTimeSeries() {
         return monthlyTimeSeries;
     }
 
-    public void setMonthlyTimeSeries(Map<String, MonthlyTimeSeries> monthlyTimeSeries) {
+    public void setMonthlyTimeSeries(Map<LocalDate, MonthlyTimeSeries> monthlyTimeSeries) {
         this.monthlyTimeSeries = monthlyTimeSeries;
     }
 
