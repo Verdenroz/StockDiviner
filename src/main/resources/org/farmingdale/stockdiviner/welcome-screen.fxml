@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.WelcomeScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -45,7 +46,7 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </TextField>
-         <TextField fx:id="welcomePwd" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         <PasswordField fx:id="welcomePwd" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          <Button fx:id="loginButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
          <Hyperlink fx:id="signUpLink" onAction="#onSignUpLinkClick" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       </children>

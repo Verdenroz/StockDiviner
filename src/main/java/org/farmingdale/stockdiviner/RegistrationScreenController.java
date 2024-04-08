@@ -35,6 +35,10 @@ public class RegistrationScreenController {
         }
         else {
             UserRecord user = auth.createUser((emailTextField.getText()), usernameField.getText(), passwordField.getText());
+            if(user == null) {
+                NotificationText.setText("Email is already in use.");
+                return;
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
