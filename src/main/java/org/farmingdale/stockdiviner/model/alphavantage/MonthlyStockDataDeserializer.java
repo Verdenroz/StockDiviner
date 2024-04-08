@@ -11,23 +11,23 @@ import java.util.Map;
 /**
  * Deserializer for the StockData class
  */
-public class StockDataDeserializer implements JsonDeserializer<StockData> {
+public class MonthlyStockDataDeserializer implements JsonDeserializer<MonthlyStockData> {
     @Override
-    public StockData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public MonthlyStockData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        StockData stockData = new StockData();
-        Map<LocalDate, StockData.MonthlyTimeSeries> monthlyTimeSeries = new HashMap<>();
+        MonthlyStockData monthlyStockData = new MonthlyStockData();
+        Map<LocalDate, MonthlyStockData.MonthlyTimeSeries> monthlyTimeSeries = new HashMap<>();
 
         JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Monthly Time Series");
 
         for (Map.Entry<String, JsonElement> entry : timeSeriesObject.entrySet()) {
-            StockData.MonthlyTimeSeries dataPoint = context.deserialize(entry.getValue(), StockData.MonthlyTimeSeries.class);
+            MonthlyStockData.MonthlyTimeSeries dataPoint = context.deserialize(entry.getValue(), MonthlyStockData.MonthlyTimeSeries.class);
             LocalDate date = LocalDate.parse(entry.getKey(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             monthlyTimeSeries.put(date, dataPoint);
         }
 
-        stockData.setMonthlyTimeSeries(monthlyTimeSeries);
-        return stockData;
+        monthlyStockData.setMonthlyTimeSeries(monthlyTimeSeries);
+        return monthlyStockData;
     }
 }
