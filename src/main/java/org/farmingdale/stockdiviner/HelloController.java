@@ -6,23 +6,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
-public class WarningScreenController {
-    @FXML
-    public Button warnCloseButton;
+public class HelloController {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+
 
     @FXML
-    public void onWarnCloseButtonClick(ActionEvent event) throws IOException {
+    protected void onHelloButtonClick( ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Search.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
+        root = fxmlLoader.load();
+        scene = new Scene(root);
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Get the stage from the event that triggered the method call
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+
     }
 }

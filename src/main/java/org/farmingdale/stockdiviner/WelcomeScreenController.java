@@ -1,5 +1,6 @@
 package org.farmingdale.stockdiviner;
 
+import com.google.firebase.auth.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.farmingdale.stockdiviner.model.firebase.FirebaseAuthentication;
 
 import java.io.IOException;
 
@@ -32,6 +34,9 @@ public class WelcomeScreenController {
 
     @FXML
     protected void onLoginButtonClick(ActionEvent event) throws IOException {
+        FirebaseAuthentication auth = FirebaseAuthentication.getInstance();
+        UserRecord user = auth.authenticateUser(welcomeUName.getText(), welcomePwd.getText());
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
         root = fxmlLoader.load();
         scene = new Scene(root);
