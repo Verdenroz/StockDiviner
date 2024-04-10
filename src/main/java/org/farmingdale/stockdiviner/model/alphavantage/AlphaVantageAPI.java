@@ -10,8 +10,16 @@ public interface AlphaVantageAPI {
     /**
      * Get the monthly time series for a given stock symbol
      * @param symbol symbol of the stock
-     * @return StockData object containing dates with associated prices
+     * @return MonthlyStockData object containing dates with associated prices
      * @throws IOException when there is an error with the request
      */
-    StockData getMonthlyTimeSeries(String symbol) throws IOException;
+    MonthlyStockData getMonthlyTimeSeries(String symbol) throws IOException;
+
+    /**
+     * Get the weekly time series for a given stock symbol
+     * @param symbol symbol of the stock
+     * @return WeeklyStockData object containing dates with associated prices
+     * @throws IOException when there is an error with the request
+     */
+    WeeklyStockData getWeeklyTimeSeries(String symbol) throws IOException;
 }

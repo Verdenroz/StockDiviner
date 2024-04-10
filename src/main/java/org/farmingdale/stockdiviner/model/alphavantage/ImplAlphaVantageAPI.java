@@ -9,6 +9,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.Properties;
@@ -59,7 +60,7 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
         return instance;
     }
     @Override
-    public StockData getMonthlyTimeSeries(String symbol) throws IOException {
+    public MonthlyStockData getMonthlyTimeSeries(String symbol) throws IOException {
         String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_MONTHLY&symbol=" + symbol + "&apikey=" + apiKey;
 
         Request request = new Request.Builder()
@@ -70,21 +71,53 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(StockData.class, new StockDataDeserializer())
-                    .registerTypeAdapter(StockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
+                    .registerTypeAdapter(MonthlyStockData.class, new MonthlyStockDataDeserializer())
+                    .registerTypeAdapter(MonthlyStockData.MonthlyTimeSeries.class, new MonthlyTimeSeriesDeserializer())
                     .create();
 
-            StockData stockData = gson.fromJson(response.body().charStream(), StockData.class);
+            MonthlyStockData monthlyStockData = gson.fromJson(response.body().charStream(), MonthlyStockData.class);
 
             // Sort the timeSeries map by keys (dates) in descending order
-            Map<String, StockData.MonthlyTimeSeries> sortedTimeSeries = stockData.getMonthlyTimeSeries().entrySet().stream()
-                    .sorted(Map.Entry.<String, StockData.MonthlyTimeSeries>comparingByKey().reversed())
+            Map<LocalDate, MonthlyStockData.MonthlyTimeSeries> sortedTimeSeries = monthlyStockData.getMonthlyTimeSeries().entrySet().stream()
+                    .sorted(Map.Entry.<LocalDate, MonthlyStockData.MonthlyTimeSeries>comparingByKey().reversed())
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
             // Set the sorted map back to the stockData object
-            stockData.setMonthlyTimeSeries(sortedTimeSeries);
+            monthlyStockData.setMonthlyTimeSeries(sortedTimeSeries);
 
-            return stockData;
+            return monthlyStockData;
+        } catch (JsonSyntaxException e) {
+            throw new IOException("Error parsing JSON", e);
+        }
+    }
+
+    @Override
+    public WeeklyStockData getWeeklyTimeSeries(String symbol) throws IOException {
+        String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_WEEKLY&symbol=" + symbol + "&apikey=" + apiKey;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(WeeklyStockData.class, new WeeklyStockDataDeserializer())
+                    .registerTypeAdapter(WeeklyStockData.WeeklyTimeSeries.class, new WeeklyTimeSeriesDeserializer())
+                    .create();
+
+            WeeklyStockData weeklyStockData = gson.fromJson(response.body().charStream(), WeeklyStockData.class);
+
+            // Sort the timeSeries map by keys (dates) in descending order
+            Map<LocalDate, WeeklyStockData.WeeklyTimeSeries> sortedTimeSeries = weeklyStockData.getWeeklyTimeSeries().entrySet().stream()
+                    .sorted(Map.Entry.<LocalDate, WeeklyStockData.WeeklyTimeSeries>comparingByKey().reversed())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+            // Set the sorted map back to the stockData object
+            weeklyStockData.setWeeklyTimeSeries(sortedTimeSeries);
+
+            return weeklyStockData;
         } catch (JsonSyntaxException e) {
             throw new IOException("Error parsing JSON", e);
         }
