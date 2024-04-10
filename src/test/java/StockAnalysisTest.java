@@ -10,10 +10,10 @@ public class StockAnalysisTest {
     public void testAnalysis() throws IOException {
         StockAnalysis stockAnalysis = new StockAnalysis("META");
 
-        System.out.println("Best Animal " + stockAnalysis.getBestAnimal() + " " + stockAnalysis.getBestAnimalAvg());
-        System.out.println("Worst Animal " + stockAnalysis.getWorstAnimal() + " " + stockAnalysis.getWorstAnimalAvg());
-        System.out.println("Best Zodiac " + stockAnalysis.getBestZodiacSign() + " " + stockAnalysis.getBestZodiacPercent());
-        System.out.println("Worst Zodiac " + stockAnalysis.getWorstZodiacSign() + " " + stockAnalysis.getWorstZodiacPercent());
+        System.out.println("Best Animal " + stockAnalysis.getBestAnimal() + " " + stockAnalysis.getBestAnimalPercent());
+        System.out.println("Worst Animal " + stockAnalysis.getWorstAnimal() + " " + stockAnalysis.getWorstAnimalPercent());
+        System.out.println("Best Zodiac " + stockAnalysis.getBestZodiacSign() + " " + stockAnalysis.getBestZodiacAvg());
+        System.out.println("Worst Zodiac " + stockAnalysis.getWorstZodiacSign() + " " + stockAnalysis.getWorstZodiacAvg());
         System.out.println("Best Lunar " + stockAnalysis.getBestLunarPhase() + " " + stockAnalysis.getBestLunarAvg());
         System.out.println("Worst Lunar " + stockAnalysis.getWorstLunarPhase() + " " + stockAnalysis.getWorstLunarAvg());
 

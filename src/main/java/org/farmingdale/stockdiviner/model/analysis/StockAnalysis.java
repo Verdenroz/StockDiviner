@@ -7,8 +7,6 @@ import org.farmingdale.stockdiviner.model.alphavantage.MonthlyStockData;
 import org.farmingdale.stockdiviner.model.alphavantage.WeeklyStockData;
 import org.farmingdale.stockdiviner.model.animals.ChineseAnimals;
 import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
-import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
-import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
@@ -29,19 +27,19 @@ public class StockAnalysis {
 
     private final ChineseAnimals bestAnimal;
 
-    private final double bestAnimalAvg;
+    private final double bestAnimalPercent;
 
     private final ChineseAnimals worstAnimal;
 
-    private final double worstAnimalAvg;
+    private final double worstAnimalPercent;
 
     private final ZodiacSigns bestZodiacSign;
 
-    private final double bestZodiacPercent;
+    private final double bestZodiacAvg;
 
     private final ZodiacSigns worstZodiacSign;
 
-    private final double worstZodiacPercent;
+    private final double worstZodiacAvg;
 
     private final LunarPhase bestLunarPhase;
 
@@ -52,8 +50,6 @@ public class StockAnalysis {
     private final double worstLunarAvg;
 
     private static final AlphaVantageAPI alphaVantage = ImplAlphaVantageAPI.getInstance();
-
-    private static final FinancialModelingAPI financialModeling = ImplFinancialModelingAPI.getInstance();
 
     private static final ChineseNewYears chineseNewYears = ChineseNewYears.getInstance();
 
@@ -69,18 +65,18 @@ public class StockAnalysis {
         Pair<Pair<ChineseAnimals, ChineseAnimals>, Pair<Double, Double>> bestWorstAnimals = getBestWorstAnimal(date);
         bestAnimal = bestWorstAnimals.getKey().getKey();
         worstAnimal = bestWorstAnimals.getKey().getValue();
-        bestAnimalAvg = Math.ceil(bestWorstAnimals.getValue().getKey() * 100) / 100;
-        worstAnimalAvg = Math.ceil(bestWorstAnimals.getValue().getValue() * 100) / 100;
+        bestAnimalPercent = Math.ceil(bestWorstAnimals.getValue().getKey() * 100) / 100;
+        worstAnimalPercent = Math.ceil(bestWorstAnimals.getValue().getValue() * 100) / 100;
 
         Pair<Pair<ZodiacSigns, ZodiacSigns>, Pair<Double, Double>> bestWorstZodiacs = getBestWorstZodiacs(date);
         bestZodiacSign = bestWorstZodiacs.getKey().getKey();
         worstZodiacSign = bestWorstZodiacs.getKey().getValue();
-        bestZodiacPercent = Math.ceil(bestWorstZodiacs.getValue().getKey() * 100) / 100;
-        worstZodiacPercent = Math.ceil(bestWorstZodiacs.getValue().getValue() * 100) / 100;
+        bestZodiacAvg = Math.ceil(bestWorstZodiacs.getValue().getKey() * 100) / 100;
+        worstZodiacAvg = Math.ceil(bestWorstZodiacs.getValue().getValue() * 100) / 100;
 
         Pair<Pair<LunarPhase, LunarPhase>, Pair<Double, Double>> bestWorstLunar = getBestWorstLunar(date);
         bestLunarPhase = bestWorstLunar.getKey().getKey();
-        worstLunarPhase = bestWorstLunar.getKey().getKey();
+        worstLunarPhase = bestWorstLunar.getKey().getValue();
         bestLunarAvg = Math.ceil(bestWorstLunar.getValue().getKey() * 100) / 100;
         worstLunarAvg = Math.ceil(bestWorstLunar.getValue().getValue() * 100) / 100;
     }
@@ -175,8 +171,8 @@ public class StockAnalysis {
             }
         }
         Pair<ZodiacSigns, ZodiacSigns> bestWorstZodiacs = new Pair<>(bestZodiacSign, worstZodiacSign);
-        Pair<Double, Double> bestWorstPercent = new Pair<>(bestAveragePrice, worstAveragePrice);
-        return new Pair<>(bestWorstZodiacs, bestWorstPercent);
+        Pair<Double, Double> bestWorstAvg = new Pair<>(bestAveragePrice, worstAveragePrice);
+        return new Pair<>(bestWorstZodiacs, bestWorstAvg);
     }
 
     private Pair<Pair<LunarPhase, LunarPhase>, Pair<Double,Double>> getBestWorstLunar(LocalDate currentDate) throws IOException {
@@ -253,20 +249,20 @@ public class StockAnalysis {
         return worstZodiacSign;
     }
 
-    public double getBestZodiacPercent() {
-        return bestZodiacPercent;
+    public double getBestZodiacAvg() {
+        return bestZodiacAvg;
     }
 
-    public double getWorstZodiacPercent() {
-        return worstZodiacPercent;
+    public double getWorstZodiacAvg() {
+        return worstZodiacAvg;
     }
 
-    public double getBestAnimalAvg() {
-        return bestAnimalAvg;
+    public double getBestAnimalPercent() {
+        return bestAnimalPercent;
     }
 
-    public double getWorstAnimalAvg() {
-        return worstAnimalAvg;
+    public double getWorstAnimalPercent() {
+        return worstAnimalPercent;
     }
 
     public double getBestLunarAvg() {
