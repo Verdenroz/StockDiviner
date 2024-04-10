@@ -15,6 +15,7 @@ import org.farmingdale.stockdiviner.model.firebase.FirebaseAuthentication;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class RegistrationScreenController {
     public TextField usernameField;
@@ -24,6 +25,17 @@ public class RegistrationScreenController {
     public TextField emailTextField;
     public Label NotificationText;
 
+    public static boolean validateEmail(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@"+
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z"+
+                "A-Z]{2,7}$";
+        Pattern emailPattern = Pattern.compile(regex);
+        if(email == null)
+            return false;
+        return emailPattern.matcher(email).matches();
+    }
+
     @FXML
     protected void onRegisterButtonClick(ActionEvent event) throws IOException {
         FirebaseAuthentication auth = FirebaseAuthentication.getInstance();
@@ -32,6 +44,12 @@ public class RegistrationScreenController {
         }
         else if(passwordField.getText().length() < 8) {
             NotificationText.setText("Password must be 8 characters or longer.");
+        }
+        else if((!emailTextField.getText().contains("@")) || (!emailTextField.getText().contains("."))) {
+            NotificationText.setText("Email must contain a '@' sign and a '.' sign.");
+        }
+        else if(!validateEmail(emailTextField.getText()))  {
+            NotificationText.setText("Invalid email address.");
         }
         else {
             UserRecord user = auth.createUser((emailTextField.getText()), usernameField.getText(), passwordField.getText());
@@ -49,3 +67,5 @@ public class RegistrationScreenController {
         }
     }
 }
+
+// Email validation referenced from https://steemit.com/utopian-io/@creon/learn-java-fxml-part-1-creating-scenes-with-email-validation-and-scene-switch

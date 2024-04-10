@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.PasswordField?>
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.WelcomeScreenController">
+<VBox alignment="CENTER" spacing="20.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.WelcomeScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -41,14 +42,17 @@
                <Font name="Lato Bold" size="24.0" />
             </font>
          </Label>
-         <TextField fx:id="welcomeUName" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <TextField fx:id="welcomeUName" promptText="Username" styleClass="grey-background" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <PasswordField fx:id="welcomePwd" promptText="Password" styleClass="grey-background" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         <Button fx:id="loginButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onLoginButtonClick" stylesheets="@styles.css" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <styleClass>
+               <String fx:value="grey-background" />
+               <String fx:value="button-shadows" />
+            </styleClass>
             <font>
                <Font name="System Bold" size="12.0" />
-            </font>
-         </TextField>
-         <PasswordField fx:id="welcomePwd" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-         <Button fx:id="loginButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-         <Hyperlink fx:id="signUpLink" onAction="#onSignUpLinkClick" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            </font></Button>
+         <Hyperlink fx:id="signUpLink" onAction="#onSignUpLinkClick" stylesheets="@styles.css" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       </children>
    </GridPane>
 </VBox>
