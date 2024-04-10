@@ -36,14 +36,18 @@ public class WelcomeScreenController {
     protected void onLoginButtonClick(ActionEvent event) throws IOException {
         FirebaseAuthentication auth = FirebaseAuthentication.getInstance();
         UserRecord user = auth.authenticateUser(welcomeUName.getText(), welcomePwd.getText());
+        if(user == null) {
+            System.out.println("User not found.");
+        }
+        else {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
+            root = fxmlLoader.load();
+            scene = new Scene(root);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
-        root = fxmlLoader.load();
-        scene = new Scene(root);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
