@@ -90,4 +90,36 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
             throw new IOException("Error parsing JSON", e);
         }
     }
+
+    @Override
+    public WeeklyStockData getWeeklyTimeSeries(String symbol) throws IOException {
+        String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_WEEKLY&symbol=" + symbol + "&apikey=" + apiKey;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(WeeklyStockData.class, new WeeklyStockDataDeserializer())
+                    .registerTypeAdapter(WeeklyStockData.WeeklyTimeSeries.class, new WeeklyTimeSeriesDeserializer())
+                    .create();
+
+            WeeklyStockData weeklyStockData = gson.fromJson(response.body().charStream(), WeeklyStockData.class);
+
+            // Sort the timeSeries map by keys (dates) in descending order
+            Map<LocalDate, WeeklyStockData.WeeklyTimeSeries> sortedTimeSeries = weeklyStockData.getWeeklyTimeSeries().entrySet().stream()
+                    .sorted(Map.Entry.<LocalDate, WeeklyStockData.WeeklyTimeSeries>comparingByKey().reversed())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+            // Set the sorted map back to the stockData object
+            weeklyStockData.setWeeklyTimeSeries(sortedTimeSeries);
+
+            return weeklyStockData;
+        } catch (JsonSyntaxException e) {
+            throw new IOException("Error parsing JSON", e);
+        }
+    }
 }
