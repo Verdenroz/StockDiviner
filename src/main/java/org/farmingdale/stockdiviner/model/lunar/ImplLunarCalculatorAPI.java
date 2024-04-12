@@ -3,9 +3,9 @@ package org.farmingdale.stockdiviner.model.lunar;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.farmingdale.stockdiviner.model.Api;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -14,28 +14,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ImplLunarCalculatorAPI implements LunarCalculatorAPI {
-    private static volatile LunarCalculatorAPI instance;
+public class ImplLunarCalculatorAPI extends Api implements LunarCalculatorAPI {
+    private static volatile ImplLunarCalculatorAPI instance;
     private static final String LUNAR_CALCULATOR_URL = "https://aa.usno.navy.mil";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
-    private final OkHttpClient client;
 
     private ImplLunarCalculatorAPI() {
-        this.client = new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    Request request = chain.request().newBuilder()
-                            .build();
-
-                    System.out.println(request.url());
-                    return chain.proceed(request);
-                })
-                .build();
+        super(LUNAR_CALCULATOR_URL);
     }
 
     /**
      * Returns the instance of the LunarCalculatorAPI
      */
-    public static LunarCalculatorAPI getInstance() {
+    public static ImplLunarCalculatorAPI getInstance() {
         if (instance == null) {
             synchronized (ImplLunarCalculatorAPI.class) {
                 if (instance == null) {

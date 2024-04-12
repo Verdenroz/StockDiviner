@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.farmingdale.stockdiviner.model.Api;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,11 +15,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 
-public class ImplFinancialModelingAPI implements FinancialModelingAPI {
-    private static volatile FinancialModelingAPI instance;
+public class ImplFinancialModelingAPI extends Api implements FinancialModelingAPI {
+    private static volatile ImplFinancialModelingAPI instance;
     private static final String FINANCIAL_MODEL_API = "https://financialmodelingprep.com/api/v3";
     private static final String apiKey;
-    private final OkHttpClient client;
 
     // Load the API key from the properties file
     static {
@@ -36,18 +35,10 @@ public class ImplFinancialModelingAPI implements FinancialModelingAPI {
     }
 
     private ImplFinancialModelingAPI() {
-        this.client = new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    Request request = chain.request().newBuilder()
-                            .build();
-
-                    System.out.println(request.url());
-                    return chain.proceed(request);
-                })
-                .build();
+        super(FINANCIAL_MODEL_API);
     }
 
-    public static FinancialModelingAPI getInstance() {
+    public static ImplFinancialModelingAPI getInstance() {
         if (instance == null) {
             synchronized (ImplFinancialModelingAPI.class) {
                 if (instance == null) {
