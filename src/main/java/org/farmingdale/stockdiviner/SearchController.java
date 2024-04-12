@@ -10,7 +10,7 @@ import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.StockSearch;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalulator;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
 
 import java.io.IOException;
 import java.util.*;
@@ -195,7 +195,7 @@ public void whatIsSelected(ActionEvent event)throws IOException{
     public void onZodiacToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(zodiacSignsButton);
-        sharedService.setZodiacCalulator(ZodiacCalulator.getInstance());
+        sharedService.setZodiacCalulator(ZodiacCalculator.getInstance());
         changeView.changeViewTo("info-screen", event);
     }
 

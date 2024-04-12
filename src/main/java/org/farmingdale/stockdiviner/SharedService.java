@@ -4,11 +4,8 @@ import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
 import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 
 
-
-import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalulator;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
 
 public class SharedService {
     private static SharedService instance = null;
@@ -18,7 +15,7 @@ public class SharedService {
 
     private LunarCalculatorAPI lunarPhanses;
 
-    private ZodiacCalulator zodiacCalulator;
+    private ZodiacCalculator zodiacCalculator;
 
     private SharedService() {
     }
@@ -50,11 +47,11 @@ public class SharedService {
     public void setLunarPhanses(LunarCalculatorAPI lunarPhanses) {
         this.lunarPhanses = lunarPhanses;
     }
-    public ZodiacCalulator getZodiacCalulator() {
-        return zodiacCalulator;
+    public ZodiacCalculator getZodiacCalulator() {
+        return zodiacCalculator;
     }
-    public void setZodiacCalulator(ZodiacCalulator zodiacCalulator) {
-        this.zodiacCalulator = zodiacCalulator;
+    public void setZodiacCalulator(ZodiacCalculator zodiacCalculator) {
+        this.zodiacCalculator = zodiacCalculator;
     }
 
 }

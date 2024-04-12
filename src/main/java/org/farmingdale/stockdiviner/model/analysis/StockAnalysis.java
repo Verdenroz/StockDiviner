@@ -10,7 +10,7 @@ import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalulator;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
 import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
 
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class StockAnalysis {
 
     private static final LunarCalculatorAPI lunarCalculator = ImplLunarCalculatorAPI.getInstance();
 
-    private static final ZodiacCalulator zodiacCalculator = ZodiacCalulator.getInstance();
+    private static final ZodiacCalculator zodiacCalculator = ZodiacCalculator.getInstance();
 
     public StockAnalysis(String symbol) throws IOException {
         monthlyStockData = alphaVantage.getMonthlyTimeSeries(symbol);
