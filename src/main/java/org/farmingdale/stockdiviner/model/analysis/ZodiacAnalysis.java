@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class is used to analyze the stock data based on the Zodiac Signs.
+ * @see ZodiacSigns
+ */
 public class ZodiacAnalysis extends Analysis {
     private final ZodiacCalculator zodiacCalculator;
     private final MonthlyStockData monthlyStockData;

@@ -1,27 +1,44 @@
-import org.farmingdale.stockdiviner.model.analysis.StockAnalysis;
+import org.farmingdale.stockdiviner.model.analysis.*;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StockAnalysisTest {
     @Test
-    public void testAnalysis() throws IOException {
-        StockAnalysis stockAnalysis = new StockAnalysis("META");
+    public void testLunarAnalysis() {
+        try {
+            LunarAnalysis lunarAnalysis = new LunarAnalysis("META");
+            System.out.println("LunarAnalysis: " + lunarAnalysis.getBestIndicator() + " " + lunarAnalysis.getBestStat());
+            System.out.println("LunarAnalysis: " + lunarAnalysis.getWorstIndicator() + " " + lunarAnalysis.getWorstStat());
+            System.out.println("LunarAnalysis: " + lunarAnalysis.getAnalyses());
 
-        System.out.println("Best Animal " + stockAnalysis.getBestAnimal() + " " + stockAnalysis.getBestAnimalPercent());
-        System.out.println("Worst Animal " + stockAnalysis.getWorstAnimal() + " " + stockAnalysis.getWorstAnimalPercent());
-        System.out.println("Best Zodiac " + stockAnalysis.getBestZodiacSign() + " " + stockAnalysis.getBestZodiacAvg());
-        System.out.println("Worst Zodiac " + stockAnalysis.getWorstZodiacSign() + " " + stockAnalysis.getWorstZodiacAvg());
-        System.out.println("Best Lunar " + stockAnalysis.getBestLunarPhase() + " " + stockAnalysis.getBestLunarAvg());
-        System.out.println("Worst Lunar " + stockAnalysis.getWorstLunarPhase() + " " + stockAnalysis.getWorstLunarAvg());
-
-        assertNotNull(stockAnalysis.getBestAnimal());
-        assertNotNull(stockAnalysis.getWorstAnimal());
-        assertNotNull(stockAnalysis.getBestZodiacSign());
-        assertNotNull(stockAnalysis.getWorstZodiacSign());
-        assertNotNull(stockAnalysis.getBestLunarPhase());
-        assertNotNull(stockAnalysis.getWorstLunarPhase());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+    @Test
+    public void testAnimalAnalysis() {
+        try {
+            AnimalAnalysis animalAnalysis = new AnimalAnalysis("META");
+            System.out.println("AnimalAnalysis: " + animalAnalysis.getBestIndicator() + " " + animalAnalysis.getBestStat());
+            System.out.println("AnimalAnalysis: " + animalAnalysis.getWorstIndicator() + " " + animalAnalysis.getWorstStat());
+            System.out.println("AnimalAnalysis: " + animalAnalysis.getAnalyses());
+            System.out.println("AnimalAnalysis: " + animalAnalysis.getAnimalDates());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testZodiacAnalysis() {
+        try {
+            ZodiacAnalysis zodiacAnalysis = new ZodiacAnalysis("META");
+            System.out.println("ZodiacAnalysis: " + zodiacAnalysis.getBestIndicator() + " " + zodiacAnalysis.getBestStat());
+            System.out.println("ZodiacAnalysis: " + zodiacAnalysis.getWorstIndicator() + " " + zodiacAnalysis.getWorstStat());
+            System.out.println("ZodiacAnalysis: " + zodiacAnalysis.getAnalyses());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

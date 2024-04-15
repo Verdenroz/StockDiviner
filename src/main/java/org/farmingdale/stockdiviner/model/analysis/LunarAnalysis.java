@@ -9,6 +9,10 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to analyze the stock data based on the Lunar Phases.
+ * @see LunarPhase
+ */
 public class LunarAnalysis extends Analysis {
     private final ImplLunarCalculatorAPI lunarCalculator;
     private final WeeklyStockData weeklyStockData;

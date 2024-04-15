@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This class is used to analyze the stock data based on the Chinese Zodiac.
+ * @see ChineseAnimals
+ */
 public class AnimalAnalysis extends Analysis {
     private final MonthlyStockData monthlyStockData;
     private final ChineseNewYears chineseNewYears;
