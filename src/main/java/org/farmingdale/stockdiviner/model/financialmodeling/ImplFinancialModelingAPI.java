@@ -10,8 +10,6 @@ import org.farmingdale.stockdiviner.model.Api;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 
@@ -93,48 +91,4 @@ public class ImplFinancialModelingAPI extends Api implements FinancialModelingAP
         }
     }
 
-    @Override
-    public EOD getEOD(String symbol, LocalDate date) throws IOException {
-        //check if date is a weekend, if so, get the next weekday
-        while (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            date = date.plusDays(1);
-        }
-        String url = FINANCIAL_MODEL_API + "/historical-price-full/" + symbol + "?from=" + date + "&to=" + date + "&apikey=" + apiKey;
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-            Gson gson = new Gson();
-            return gson.fromJson(response.body().charStream(), EOD.class);
-        } catch (JsonSyntaxException e) {
-            throw new IOException("Error parsing JSON", e);
-        }
-    }
-
-    @Deprecated(since = "This method is deprecated and will be removed in a future release")
-    @Override
-    public List<FullQuoteData> getSymbolList(String exchange) throws IOException {
-        String url = FINANCIAL_MODEL_API + "/symbol/" + exchange + "?apikey=" + apiKey;
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(new TypeToken<List<FullQuoteData>>() {
-                    }.getType(), new ListFullQuoteDataDeserializer())
-                    .create();
-
-            return gson.fromJson(response.body().charStream(), new TypeToken<List<FullQuoteData>>() {
-            }.getType());
-
-        } catch (JsonSyntaxException e) {
-            throw new IOException("Error parsing JSON", e);
-        }
-    }
 }
