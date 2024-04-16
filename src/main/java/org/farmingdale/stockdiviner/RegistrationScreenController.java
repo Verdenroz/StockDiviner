@@ -57,6 +57,8 @@ public class RegistrationScreenController {
                 NotificationText.setText("Email is already in use.");
                 return;
             }
+            SharedService sharedService = SharedService.getInstance();
+            sharedService.setUser(user);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);

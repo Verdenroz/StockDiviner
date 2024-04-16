@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class SearchController {
+    private final SharedService sharedService;
+
     ChangeView changeView = ChangeView.getInstance();
+
     @FXML
     private ToggleButton ChineseNewYearsButton;
 
@@ -37,23 +40,21 @@ public class SearchController {
     private ListView<String> searchResultsListView;
 
     @FXML
-     private Label stockNameLabel;
+    private Label stockNameLabel;
 
-    private SharedService sharedService ;
+    FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
+
 
     public SearchController() {
         this.sharedService = SharedService.getInstance();
     }
 
-
-    FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
-
-    public void setTheUserNameLabel(String userName){
-        userNameLabel.setText(userName);
+    public void initialize() {
+        userNameLabel.setText(sharedService.getUser().getDisplayName());
     }
 
-//populate a list of stock symbols
-    public void populateListWithStocksWhenType(){
+    //populate a list of stock symbols
+    public void populateListWithStocksWhenType() {
         searchResultsListView.setVisible(true);
         ObservableList<String> stockSymbols = searchResultsListView.getItems();
 
@@ -80,7 +81,7 @@ public class SearchController {
 
     }
 
-    public void fromListCellToTextField(){
+    public void fromListCellToTextField() {
 
         searchResultsListView.setOnMouseClicked(event -> {
             String selectedItem = searchResultsListView.getSelectionModel().getSelectedItem();
@@ -94,15 +95,13 @@ public class SearchController {
     }
 
 
-
-public void onPickStockButtonClicked(ActionEvent event) throws IOException {
+    public void onPickStockButtonClicked(ActionEvent event) throws IOException {
         String symbol = searchBarTextField.getText();
 
         stockNameLabel.setText(symbol);
-        if(isTheStockNameEmpty(stockNameLabel)!=false){
+        if (isTheStockNameEmpty(stockNameLabel) != false) {
             stockNameLabel.setVisible(false);
-        }
-        else {
+        } else {
             // isTheStockNameEmpty(stockNameLabel);
             searchBarTextField.clear();
 
@@ -128,16 +127,16 @@ public void onPickStockButtonClicked(ActionEvent event) throws IOException {
             }
         }
     }
-    public boolean isTheStockNameEmpty(Label label){
-        if(label.getText().isEmpty()){
+
+    public boolean isTheStockNameEmpty(Label label) {
+        if (label.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Stock Not Selected");
             alert.setContentText("Please select a stock before proceeding");
             alert.showAndWait();
             return true;
-        }
-        else{
+        } else {
             makeTheToggleButtonsAvailable();
         }
 
@@ -145,44 +144,43 @@ public void onPickStockButtonClicked(ActionEvent event) throws IOException {
 
     }
 
-    public void onLogOutButtonClicked(ActionEvent event) throws IOException{
+    public void onLogOutButtonClicked(ActionEvent event) throws IOException {
         changeView.logout(event);
     }
 //if Lunar button is selected, set the shared service to the LunarCalculatorAPI
 //if Chinese button is selected, set the shared service to the ChineseNewYears
 //if Zodiac button is selected, set the shared service to the ZodiacCalculator
 
-public void makeTheToggleButtonsAvailable(){
+    public void makeTheToggleButtonsAvailable() {
         ChineseNewYearsButton.setDisable(false);
         lunarPhasesButton.setDisable(false);
         zodiacSignsButton.setDisable(false);
-}
+    }
 
-public void whatIsSelected(ActionEvent event)throws IOException{
-    if(ChineseNewYearsButton.isSelected()){
-        System.out.println("Chinese New Years is selected");
-        onChineseToggleSelected(event);
-        sharedService.setAnalysisType(AnalysisType.ANIMAL);
+    public void whatIsSelected(ActionEvent event) throws IOException {
+        if (ChineseNewYearsButton.isSelected()) {
+            System.out.println("Chinese New Years is selected");
+            onChineseToggleSelected(event);
+            sharedService.setAnalysisType(AnalysisType.ANIMAL);
+        }
+        if (lunarPhasesButton.isSelected()) {
+            System.out.println("Lunar Phases is selected");
+            onLunarToggleSelected(event);
+            sharedService.setAnalysisType(AnalysisType.LUNAR);
+        }
+        if (zodiacSignsButton.isSelected()) {
+            System.out.println("Zodiac Signs is selected");
+            onZodiacToggleSelected(event);
+            sharedService.setAnalysisType(AnalysisType.ZODIAC);
+        }
     }
-    if(lunarPhasesButton.isSelected()){
-        System.out.println("Lunar Phases is selected");
-        onLunarToggleSelected(event);
-        sharedService.setAnalysisType(AnalysisType.LUNAR);
-    }
-    if(zodiacSignsButton.isSelected()){
-        System.out.println("Zodiac Signs is selected");
-        onZodiacToggleSelected(event);
-        sharedService.setAnalysisType(AnalysisType.ZODIAC);
-    }
-}
-
 
 
     public void onChineseToggleSelected(ActionEvent event) throws IOException {
-           ChineseNewYearsButton.setDisable(false);
-            resetButtonStyles();
-            changeColorSelected(ChineseNewYearsButton);
-            changeView.changeViewTo("info-screen", event);
+        ChineseNewYearsButton.setDisable(false);
+        resetButtonStyles();
+        changeColorSelected(ChineseNewYearsButton);
+        changeView.changeViewTo("info-screen", event);
     }
 
     public void onLunarToggleSelected(ActionEvent event) throws IOException {

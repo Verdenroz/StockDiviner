@@ -40,6 +40,8 @@ public class WelcomeScreenController {
             System.out.println("User not found.");
         }
         else {
+            SharedService sharedService = SharedService.getInstance();
+            sharedService.setUser(user);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
             root = fxmlLoader.load();
             scene = new Scene(root);
