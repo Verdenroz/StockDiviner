@@ -99,7 +99,7 @@ public class SearchController {
         String symbol = searchBarTextField.getText();
 
         stockNameLabel.setText(symbol);
-        if (isTheStockNameEmpty(stockNameLabel) != false) {
+        if (isTheStockNameEmpty(stockNameLabel)) {
             stockNameLabel.setVisible(false);
         } else {
             // isTheStockNameEmpty(stockNameLabel);
@@ -113,12 +113,6 @@ public class SearchController {
             try {
                 result = api.getFullQuoteData(api.searchStock(symbol).get(0).getSymbol());
                 if (result != null) {
-                    System.out.println(result.getName());
-                    System.out.println(result.getChange());
-                    System.out.println(result.getChangesPercentage());
-                    System.out.println(result.getPreviousClose());
-                    System.out.println(result.getAvgVolume());
-
                     sharedService.setData(result);
                 }
             } catch (IOException e) {
