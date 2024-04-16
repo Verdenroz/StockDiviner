@@ -6,20 +6,20 @@ import com.google.gson.JsonSyntaxException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.farmingdale.stockdiviner.model.Api;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class ImplAlphaVantageAPI implements AlphaVantageAPI {
-    private static volatile AlphaVantageAPI instance;
+public class ImplAlphaVantageAPI extends Api implements AlphaVantageAPI {
+    private static volatile ImplAlphaVantageAPI instance;
     private static final String ALPHA_VANTAGE_URL = "https://alpha-vantage.p.rapidapi.com";
     private static final String apiKey;
-    private final OkHttpClient client;
 
     // Load the API key from the properties file
     static {
@@ -36,6 +36,7 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
     }
 
     private ImplAlphaVantageAPI() {
+        super(ALPHA_VANTAGE_URL);
         this.client = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request request = chain.request().newBuilder()
@@ -49,7 +50,7 @@ public class ImplAlphaVantageAPI implements AlphaVantageAPI {
                 .build();
     }
 
-    public static AlphaVantageAPI getInstance() {
+    public static ImplAlphaVantageAPI getInstance() {
         if (instance == null) {
             synchronized (ImplAlphaVantageAPI.class) {
                 if (instance == null) {

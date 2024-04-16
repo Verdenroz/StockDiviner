@@ -1,16 +1,16 @@
 package org.farmingdale.stockdiviner.model.zodiac;
 
-public class ZodiacCalulator {
-    public static volatile ZodiacCalulator instance;
+public class ZodiacCalculator {
+    public static volatile ZodiacCalculator instance;
 
-    private ZodiacCalulator() {
+    private ZodiacCalculator() {
     }
 
-    public static ZodiacCalulator getInstance() {
+    public static ZodiacCalculator getInstance() {
         if (instance == null) {
-            synchronized (ZodiacCalulator.class) {
+            synchronized (ZodiacCalculator.class) {
                 if (instance == null) {
-                    instance = new ZodiacCalulator();
+                    instance = new ZodiacCalculator();
                 }
             }
         }

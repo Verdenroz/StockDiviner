@@ -1,31 +1,31 @@
 package org.farmingdale.stockdiviner;
 
-import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
+import com.google.firebase.auth.UserRecord;
+import org.farmingdale.stockdiviner.model.AnalysisType;
 import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 
-
-
-import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
-import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalulator;
-
+/**
+ * Passes data between controllers
+ */
 public class SharedService {
-    private static SharedService instance = null;
+    private static volatile SharedService instance;
+
+    private UserRecord user;
+
     private FullQuoteData data;
 
-    private ChineseNewYears chineseNewYears;
-
-    private LunarCalculatorAPI lunarPhanses;
-
-    private ZodiacCalulator zodiacCalulator;
+    private AnalysisType analysisType;
 
     private SharedService() {
     }
 
     public static SharedService getInstance() {
         if (instance == null) {
-            instance = new SharedService();
+            synchronized (SharedService.class) {
+                if (instance == null) {
+                    instance = new SharedService();
+                }
+            }
         }
         return instance;
     }
@@ -38,23 +38,21 @@ public class SharedService {
         this.data = data;
     }
 
-    public ChineseNewYears getChineseNewYears() {
-        return chineseNewYears;
+    public UserRecord getUser() {
+        return user;
     }
-    public void setChineseNewYears(ChineseNewYears chineseNewYears) {
-        this.chineseNewYears = chineseNewYears;
+
+    public void setUser(UserRecord user) {
+        this.user = user;
     }
-    public LunarCalculatorAPI getLunarPhanses() {
-        return lunarPhanses;
+
+    public AnalysisType getAnalysisType() {
+        return analysisType;
     }
-    public void setLunarPhanses(LunarCalculatorAPI lunarPhanses) {
-        this.lunarPhanses = lunarPhanses;
+
+    public void setAnalysisType(AnalysisType analysisType) {
+        this.analysisType = analysisType;
     }
-    public ZodiacCalulator getZodiacCalulator() {
-        return zodiacCalulator;
-    }
-    public void setZodiacCalulator(ZodiacCalulator zodiacCalulator) {
-        this.zodiacCalulator = zodiacCalulator;
-    }
+
 
 }

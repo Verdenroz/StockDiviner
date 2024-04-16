@@ -2,34 +2,15 @@ import org.farmingdale.stockdiviner.model.alphavantage.AlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.MonthlyStockData;
 import org.farmingdale.stockdiviner.model.alphavantage.WeeklyStockData;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AlphaVantageTest {
-
-    @BeforeEach
-    public void setup() {
-        // Load properties and set system property
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-            if (input == null) {
-                throw new IOException("Unable to find config.properties");
-            }
-            properties.load(input);
-            String apiKey = properties.getProperty("alphaVantage.apiKey");
-            System.setProperty("alphaVantage.apiKey", apiKey);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     @Test
     void getMonthlyTimeSeries() {

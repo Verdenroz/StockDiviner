@@ -23,4 +23,5 @@ module org.farmingdale.stockdiviner {
     exports org.farmingdale.stockdiviner.model.zodiac;
     exports org.farmingdale.stockdiviner.model.firebase;
     exports org.farmingdale.stockdiviner.model.analysis;
+    exports org.farmingdale.stockdiviner.model;
 }
