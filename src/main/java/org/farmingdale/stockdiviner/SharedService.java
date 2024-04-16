@@ -38,6 +38,14 @@ public class SharedService {
         this.data = data;
     }
 
+    public UserRecord getUser() {
+        return user;
+    }
+
+    public void setUser(UserRecord user) {
+        this.user = user;
+    }
+
     public AnalysisType getAnalysisType() {
         return analysisType;
     }
@@ -45,4 +53,6 @@ public class SharedService {
     public void setAnalysisType(AnalysisType analysisType) {
         this.analysisType = analysisType;
     }
+
+
 }
