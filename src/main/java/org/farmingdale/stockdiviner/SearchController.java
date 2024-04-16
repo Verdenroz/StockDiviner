@@ -4,13 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
 import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.financialmodeling.StockSearch;
-import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
+import org.farmingdale.stockdiviner.model.AnalysisType;
 
 import java.io.IOException;
 import java.util.*;
@@ -164,14 +162,17 @@ public void whatIsSelected(ActionEvent event)throws IOException{
     if(ChineseNewYearsButton.isSelected()){
         System.out.println("Chinese New Years is selected");
         onChineseToggleSelected(event);
+        sharedService.setAnalysisType(AnalysisType.ANIMAL);
     }
     if(lunarPhasesButton.isSelected()){
         System.out.println("Lunar Phases is selected");
         onLunarToggleSelected(event);
+        sharedService.setAnalysisType(AnalysisType.LUNAR);
     }
     if(zodiacSignsButton.isSelected()){
         System.out.println("Zodiac Signs is selected");
         onZodiacToggleSelected(event);
+        sharedService.setAnalysisType(AnalysisType.ZODIAC);
     }
 }
 
@@ -181,21 +182,18 @@ public void whatIsSelected(ActionEvent event)throws IOException{
            ChineseNewYearsButton.setDisable(false);
             resetButtonStyles();
             changeColorSelected(ChineseNewYearsButton);
-            sharedService.setChineseNewYears(ChineseNewYears.getInstance());
             changeView.changeViewTo("info-screen", event);
     }
 
     public void onLunarToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(lunarPhasesButton);
-        sharedService.setLunarPhanses(ImplLunarCalculatorAPI.getInstance());
         changeView.changeViewTo("info-screen", event);
     }
 
     public void onZodiacToggleSelected(ActionEvent event) throws IOException {
         resetButtonStyles();
         changeColorSelected(zodiacSignsButton);
-        sharedService.setZodiacCalulator(ZodiacCalculator.getInstance());
         changeView.changeViewTo("info-screen", event);
     }
 

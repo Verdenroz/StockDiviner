@@ -1,28 +1,31 @@
 package org.farmingdale.stockdiviner;
 
-import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
+import com.google.firebase.auth.UserRecord;
+import org.farmingdale.stockdiviner.model.AnalysisType;
 import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 
-
-import org.farmingdale.stockdiviner.model.lunar.LunarCalculatorAPI;
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
-
+/**
+ * Passes data between controllers
+ */
 public class SharedService {
-    private static SharedService instance = null;
+    private static volatile SharedService instance;
+
+    private UserRecord user;
+
     private FullQuoteData data;
 
-    private ChineseNewYears chineseNewYears;
-
-    private LunarCalculatorAPI lunarPhanses;
-
-    private ZodiacCalculator zodiacCalculator;
+    private AnalysisType analysisType;
 
     private SharedService() {
     }
 
     public static SharedService getInstance() {
         if (instance == null) {
-            instance = new SharedService();
+            synchronized (SharedService.class) {
+                if (instance == null) {
+                    instance = new SharedService();
+                }
+            }
         }
         return instance;
     }
@@ -35,23 +38,11 @@ public class SharedService {
         this.data = data;
     }
 
-    public ChineseNewYears getChineseNewYears() {
-        return chineseNewYears;
-    }
-    public void setChineseNewYears(ChineseNewYears chineseNewYears) {
-        this.chineseNewYears = chineseNewYears;
-    }
-    public LunarCalculatorAPI getLunarPhanses() {
-        return lunarPhanses;
-    }
-    public void setLunarPhanses(LunarCalculatorAPI lunarPhanses) {
-        this.lunarPhanses = lunarPhanses;
-    }
-    public ZodiacCalculator getZodiacCalulator() {
-        return zodiacCalculator;
-    }
-    public void setZodiacCalulator(ZodiacCalculator zodiacCalculator) {
-        this.zodiacCalculator = zodiacCalculator;
+    public AnalysisType getAnalysisType() {
+        return analysisType;
     }
 
+    public void setAnalysisType(AnalysisType analysisType) {
+        this.analysisType = analysisType;
+    }
 }
