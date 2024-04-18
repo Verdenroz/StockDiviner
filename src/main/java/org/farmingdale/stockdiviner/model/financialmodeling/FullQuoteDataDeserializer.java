@@ -32,9 +32,6 @@ public class FullQuoteDataDeserializer implements JsonDeserializer<FullQuoteData
         fullQuoteData.setAvgVolume(jsonObject.get("avgVolume").getAsLong());
         fullQuoteData.setOpen(jsonObject.get("open").getAsDouble());
         fullQuoteData.setPreviousClose(jsonObject.get("previousClose").getAsDouble());
-        fullQuoteData.setEps(jsonObject.get("eps").getAsDouble());
-        fullQuoteData.setPe(jsonObject.get("pe").getAsDouble());
-        fullQuoteData.setEarningsAnnouncement(jsonObject.get("earningsAnnouncement").getAsString());
         fullQuoteData.setSharesOutstanding(jsonObject.get("sharesOutstanding").getAsLong());
 
         return fullQuoteData;
