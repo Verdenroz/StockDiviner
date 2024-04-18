@@ -172,12 +172,12 @@ public class SearchController {
         searchResultsListView.setOnMouseClicked(event -> {
             StockSearch selectedItem = searchResultsListView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                searchBarTextField.setText(selectedItem.getName());
+                searchBarTextField.setText(selectedItem.getSymbol());
                 searchResultsListView.getItems().clear();
                 searchResultsListView.setVisible(false);
                 try {
                     setStockInfoArea(api.getFullQuoteData(selectedItem.getSymbol()));
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
                     alert.setHeaderText("Unable to retrieve stock information");
@@ -197,7 +197,7 @@ public class SearchController {
         try {
             FullQuoteData data = api.getFullQuoteData(symbol);
             setStockInfoArea(data);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Unable to retrieve stock information");
