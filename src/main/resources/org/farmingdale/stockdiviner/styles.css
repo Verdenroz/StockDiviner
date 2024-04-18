@@ -31,8 +31,21 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0, 0, 0);
 }
 
+.stock-label {
+    -fx-font-size: 14px;
+    -fx-font-family: "Berlin Sans FB";
+    -fx-text-fill: #000000;
+}
+
 #stockInfoArea {
     -fx-background-color: #ffffff;
     -fx-border-color: black;
     -fx-border-width: 2;
+    -fx-font-family: "Berlin Sans FB";
+    -fx-font-size: 20;
+}
+
+.list-cell:filled {
+    -fx-control-inner-background: #ffffff;
+    -fx-control-inner-background-alt: #ffffff;
 }
