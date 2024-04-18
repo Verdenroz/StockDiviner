@@ -18,18 +18,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="741.0" styleClass="grey-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.InfoScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="741.0" styleClass="grey-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.InfoScreenController">
    <top>
-      <StackPane prefHeight="28.0" prefWidth="742.0" styleClass="green-background" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="28.0" prefWidth="742.0" styleClass="green-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="green-background" stylesheets="@style.css">
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="green-background" stylesheets="@styles.css">
                <children>
-                  <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="402.0" styleClass="green-background" stylesheets="@style.css">
+                  <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="402.0" styleClass="green-background" stylesheets="@styles.css">
                      <items>
                         <Button mnemonicParsing="false" text="Profile" />
                      </items>
                   </ToolBar>
-                  <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="371.0" styleClass="green-background" stylesheets="@style.css">
+                  <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="371.0" styleClass="green-background" stylesheets="@styles.css">
                      <items>
                         <Button mnemonicParsing="false" text="Log Out" />
                      </items>
@@ -45,13 +45,13 @@
       </StackPane>
    </top>
    <center>
-      <StackPane prefHeight="380.0" prefWidth="0.0" styleClass="greenish-background" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="380.0" prefWidth="0.0" styleClass="greenish-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="380.0" prefWidth="50.0" spacing="10.0">
                <children>
                   <HBox prefHeight="190.0" prefWidth="742.0">
                      <children>
-                        <LineChart fx:id="priceChart" prefHeight="219.0" prefWidth="484.0" styleClass="white-background" stylesheets="@style.css" title="Stock Name">
+                        <LineChart fx:id="priceChart" prefHeight="219.0" prefWidth="484.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
@@ -65,7 +65,7 @@
                               <Insets left="15.0" right="15.0" top="10.0" />
                            </HBox.margin>
                         </LineChart>
-                        <VBox prefHeight="219.0" prefWidth="181.0" styleClass="white-background" stylesheets="@style.css">
+                        <VBox prefHeight="219.0" prefWidth="181.0" styleClass="white-background" stylesheets="@styles.css">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="224.0" text="Indicators" textAlignment="CENTER">
                                  <VBox.margin>
@@ -101,7 +101,7 @@
                   </HBox>
                   <HBox prefHeight="265.0" prefWidth="742.0">
                      <children>
-                        <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="130.0" prefWidth="500.0" styleClass="white-background" stylesheets="@style.css">
+                        <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="130.0" prefWidth="500.0" styleClass="white-background" stylesheets="@styles.css">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.20001220703125" minWidth="10.0" prefWidth="191.59998779296876" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.39999999999998" minWidth="10.0" prefWidth="142.80001220703124" />
@@ -216,7 +216,7 @@
                               <Insets bottom="10.0" left="15.0" right="10.0" />
                            </HBox.margin>
                         </GridPane>
-                        <GridPane prefHeight="130.0" prefWidth="500.0" styleClass="white-background" stylesheets="@style.css">
+                        <GridPane prefHeight="130.0" prefWidth="500.0" styleClass="white-background" stylesheets="@styles.css">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.99996795654297" minWidth="10.0" prefWidth="130.400048828125" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.4000244140625" minWidth="10.0" prefWidth="128.799951171875" />
