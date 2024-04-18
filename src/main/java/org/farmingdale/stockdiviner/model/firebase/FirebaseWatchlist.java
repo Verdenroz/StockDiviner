@@ -82,4 +82,29 @@ public class FirebaseWatchlist {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteFromWatchlist(String email, String symbol) {
+        CollectionReference watchlist = db.getWatchlistCollection(email);
+        ApiFuture<WriteResult> writeResult = watchlist.document(symbol).delete();
+
+        try {
+            writeResult.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isInsideWatchList(String email, String symbol) {
+        CollectionReference watchlist = db.getWatchlistCollection(email);
+        List<String> symbols = new ArrayList<>();
+        try {
+            List<QueryDocumentSnapshot> documents = watchlist.get().get().getDocuments();
+            for (DocumentSnapshot document : documents) {
+                symbols.add(document.getId());
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println(e.getMessage());
+        }
+        return symbols.contains(symbol);
+    }
 }
