@@ -24,6 +24,8 @@ public class RegistrationScreenController {
     public Button registerButton;
     public TextField emailTextField;
     public Label NotificationText;
+    public Label emailNotificationText;
+    public Label usernameNotificationText;
 
     public static boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
@@ -46,10 +48,10 @@ public class RegistrationScreenController {
             NotificationText.setText("Password must be 8 characters or longer.");
         }
         else if((!emailTextField.getText().contains("@")) || (!emailTextField.getText().contains("."))) {
-            NotificationText.setText("Email must contain a '@' sign and a '.' sign.");
+            emailNotificationText.setText("Email must contain a '@' sign and a '.' sign.");
         }
         else if(!validateEmail(emailTextField.getText()))  {
-            NotificationText.setText("Invalid email address.");
+            emailNotificationText.setText("Invalid email address.");
         }
         else {
             UserRecord user = auth.createUser((emailTextField.getText()), usernameField.getText(), passwordField.getText());
@@ -57,7 +59,7 @@ public class RegistrationScreenController {
                 NotificationText.setText("Email is already in use.");
                 return;
             }
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registration-successful.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
 

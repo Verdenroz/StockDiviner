@@ -3,33 +3,27 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.WelcomeScreenController">
+<VBox alignment="CENTER" spacing="20.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.RegistrationSuccessfulController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <GridPane>
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
      </columnConstraints>
      <rowConstraints>
          <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
@@ -37,14 +31,12 @@
          <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Label text="Stock Diviner" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <Label text="Registration Successful!" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <font>
                <Font name="Lato Bold" size="24.0" />
             </font>
          </Label>
-         <TextField fx:id="welcomeUName" promptText="Username" styleClass="grey-background" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         <PasswordField fx:id="welcomePwd" promptText="Password" styleClass="grey-background" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-         <Button fx:id="loginButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onLoginButtonClick" stylesheets="@styles.css" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+         <Button fx:id="loginContinueButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onRegistrationContinueButtonClick" stylesheets="@styles.css" text="CONTINUE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <styleClass>
                <String fx:value="grey-background" />
                <String fx:value="button-shadows" />
@@ -52,8 +44,7 @@
             <font>
                <Font name="System Bold" size="12.0" />
             </font></Button>
-         <Hyperlink fx:id="signUpLink" onAction="#onSignUpLinkClick" stylesheets="@styles.css" text="No Account? Sign up here." textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-         <Label fx:id="loginText" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+         <Label fx:id="loginText" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       </children>
    </GridPane>
 </VBox>

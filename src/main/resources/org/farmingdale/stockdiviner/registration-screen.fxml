@@ -42,6 +42,8 @@
             <Button fx:id="registerButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" styleClass="grey-background" stylesheets="@styles.css" text="REGISTER" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
             <TextField fx:id="emailTextField" maxWidth="175.0" promptText="Email" styleClass="grey-background" stylesheets="@styles.css" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label fx:id="NotificationText" alignment="CENTER" contentDisplay="CENTER" stylesheets="@styles.css" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+            <Label fx:id="emailNotificationText" textAlignment="CENTER" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label fx:id="usernameNotificationText" textAlignment="CENTER" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>

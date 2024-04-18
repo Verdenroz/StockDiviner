@@ -16,12 +16,13 @@ import org.farmingdale.stockdiviner.model.firebase.FirebaseAuthentication;
 
 import java.io.IOException;
 
-public class WelcomeScreenController {
+public class RegistrationSuccessfulController {
     public Hyperlink signUpLink;
     public Button loginButton;
     public TextField welcomePwd;
     public TextField welcomeUName;
     public Label loginText;
+    public Button loginContinueButton;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -34,26 +35,8 @@ public class WelcomeScreenController {
     }*/
 
     @FXML
-    protected void onLoginButtonClick(ActionEvent event) throws IOException {
-        FirebaseAuthentication auth = FirebaseAuthentication.getInstance();
-        UserRecord user = auth.authenticateUser(welcomeUName.getText(), welcomePwd.getText());
-        if(user == null) {
-            loginText.setText("User not found.");
-        }
-        else {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-successful.fxml"));
-            root = fxmlLoader.load();
-            scene = new Scene(root);
-
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        }
-    }
-
-    @FXML
-    protected void onSignUpLinkClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registration-screen.fxml"));
+    protected void onRegistrationContinueButtonClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
         root = fxmlLoader.load();
         scene = new Scene(root);
 
