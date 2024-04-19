@@ -70,6 +70,28 @@ public class ImplFinancialModelingAPI extends Api implements FinancialModelingAP
     }
 
     @Override
+    public List<FullQuoteData> getBulkQuotes(String... symbols) throws IOException {
+        String joinedSymbols = String.join(",", symbols);
+        String url = FINANCIAL_MODEL_API + "/quote/" + joinedSymbols + "?apikey=" + apiKey;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(new TypeToken<List<FullQuoteData>>(){}.getType(), new FullQuoteDataListDeserializer())
+                    .create();
+
+            return gson.fromJson(response.body().charStream(), new TypeToken<List<FullQuoteData>>(){}.getType());
+        } catch (JsonSyntaxException e) {
+            throw new IOException("Error parsing JSON", e);
+        }
+    }
+
+    @Override
     public List<StockSearch> searchStock(String input) throws IOException {
         String url = FINANCIAL_MODEL_API + "/search?query=" + input + "&limit=5&exchange=NASDAQ,NYSE,AMEX&apikey=" + apiKey;
 

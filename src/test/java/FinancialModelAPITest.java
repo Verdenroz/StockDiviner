@@ -32,6 +32,30 @@ public class FinancialModelAPITest {
     }
 
     @Test
+    public void getBulkQuotes() {
+        // Arrange
+        FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
+
+        // Act
+        List<FullQuoteData> result = null;
+        try {
+            result = api.getBulkQuotes("AAPL", "TSLA", "GOOGL");
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException was thrown");
+        }
+        for (FullQuoteData data : result) {
+            System.out.println(data.getName());
+            System.out.println(data.getChange());
+            System.out.println(data.getChangesPercentage());
+            System.out.println(data.getPreviousClose());
+            System.out.println(data.getAvgVolume());
+        }
+        // Assert
+        assertNotNull(result, "The returned FullQuoteData object should not be null");
+    }
+
+    @Test
     public void searchStockTest() {
         // Arrange
         FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();

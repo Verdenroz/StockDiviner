@@ -9,7 +9,7 @@ public class WeeklyStockData {
     /**
      * Map of dates to prices
      */
-    @SerializedName("Monthly Time Series")
+    @SerializedName("Weekly Adjusted Time Series")
     private Map<LocalDate, WeeklyStockData.WeeklyTimeSeries> weeklyTimeSeries;
 
     public Map<LocalDate, WeeklyStockData.WeeklyTimeSeries> getWeeklyTimeSeries() {
@@ -21,7 +21,7 @@ public class WeeklyStockData {
     }
 
     public static class WeeklyTimeSeries {
-        @SerializedName("4. close")
+        @SerializedName("5. adjusted close")
         private String close;
 
         public String getClose() {
