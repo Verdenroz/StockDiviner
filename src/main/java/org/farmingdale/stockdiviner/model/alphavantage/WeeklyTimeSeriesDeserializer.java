@@ -10,7 +10,7 @@ public class WeeklyTimeSeriesDeserializer implements JsonDeserializer<WeeklyStoc
         JsonObject jsonObject = json.getAsJsonObject();
 
         WeeklyStockData.WeeklyTimeSeries weeklyTimeSeries = new WeeklyStockData.WeeklyTimeSeries();
-        weeklyTimeSeries.setClose(jsonObject.get("4. close").getAsString());
+        weeklyTimeSeries.setClose(jsonObject.get("5. adjusted close").getAsString());
 
         return weeklyTimeSeries;
     }
