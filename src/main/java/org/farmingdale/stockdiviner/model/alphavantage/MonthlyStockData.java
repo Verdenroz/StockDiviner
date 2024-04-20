@@ -12,7 +12,7 @@ public class MonthlyStockData {
     /**
      * Map of dates to prices
      */
-    @SerializedName("Monthly Time Series")
+    @SerializedName("Monthly Adjusted Time Series")
     private Map<LocalDate, MonthlyTimeSeries> monthlyTimeSeries;
 
     public Map<LocalDate, MonthlyTimeSeries> getMonthlyTimeSeries() {
@@ -24,7 +24,7 @@ public class MonthlyStockData {
     }
 
     public static class MonthlyTimeSeries {
-        @SerializedName("4. close")
+        @SerializedName("5. adjusted close")
         private String close;
 
         public String getClose() {

@@ -21,7 +21,7 @@ public class MonthlyTimeSeriesDeserializer implements JsonDeserializer<MonthlySt
         JsonObject jsonObject = json.getAsJsonObject();
 
         MonthlyStockData.MonthlyTimeSeries monthlyTimeSeries = new MonthlyStockData.MonthlyTimeSeries();
-        monthlyTimeSeries.setClose(jsonObject.get("4. close").getAsString());
+        monthlyTimeSeries.setClose(jsonObject.get("5. adjusted close").getAsString());
 
         return monthlyTimeSeries;
     }

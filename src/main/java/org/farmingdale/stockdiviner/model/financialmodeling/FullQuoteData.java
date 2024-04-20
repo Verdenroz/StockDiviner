@@ -21,9 +21,6 @@ public class FullQuoteData {
     private long avgVolume;
     private double open;
     private double previousClose;
-    private double eps;
-    private double pe;
-    private String earningsAnnouncement;
     private long sharesOutstanding;
 
     public String getSymbol() {
@@ -160,30 +157,6 @@ public class FullQuoteData {
 
     public void setPreviousClose(double previousClose) {
         this.previousClose = previousClose;
-    }
-
-    public double getEps() {
-        return eps;
-    }
-
-    public void setEps(double eps) {
-        this.eps = eps;
-    }
-
-    public double getPe() {
-        return pe;
-    }
-
-    public void setPe(double pe) {
-        this.pe = pe;
-    }
-
-    public String getEarningsAnnouncement() {
-        return earningsAnnouncement;
-    }
-
-    public void setEarningsAnnouncement(String earningsAnnouncement) {
-        this.earningsAnnouncement = earningsAnnouncement;
     }
 
     public long getSharesOutstanding() {

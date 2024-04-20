@@ -11,19 +11,16 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AlphaVantageTest {
+    private final AlphaVantageAPI api = ImplAlphaVantageAPI.getInstance();
+    private final String symbol = "AAPL";
 
     @Test
     void getMonthlyTimeSeries() {
-        // Arrange
-        AlphaVantageAPI api = ImplAlphaVantageAPI.getInstance();
-        String symbol = "META"; // Use a valid symbol for testing
-
-        // Act
         MonthlyStockData result = null;
         try {
             result = api.getMonthlyTimeSeries(symbol);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             fail("IOException was thrown");
         }
         Map<LocalDate, MonthlyStockData.MonthlyTimeSeries> timeSeries = result.getMonthlyTimeSeries();
@@ -42,16 +39,11 @@ public class AlphaVantageTest {
 
     @Test
     void getWeeklyTimeSeries() {
-        // Arrange
-        AlphaVantageAPI api = ImplAlphaVantageAPI.getInstance();
-        String symbol = "META"; // Use a valid symbol for testing
-
-        // Act
         WeeklyStockData result = null;
         try {
             result = api.getWeeklyTimeSeries(symbol);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             fail("IOException was thrown");
         }
         Map<LocalDate, WeeklyStockData.WeeklyTimeSeries> timeSeries = result.getWeeklyTimeSeries();
@@ -62,7 +54,7 @@ public class AlphaVantageTest {
 
             System.out.println("Date: " + date + ", Closing Price: " + closingPrice);
         }
-        // Assert
+
         assertNotNull(result, "Result should not be null");
         assertNotNull(result.getWeeklyTimeSeries(), "Weekly time series should not be null");
         assertFalse(result.getWeeklyTimeSeries().isEmpty(), "Weekly time series should not be empty");
