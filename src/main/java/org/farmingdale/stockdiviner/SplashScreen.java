@@ -60,7 +60,7 @@ public class SplashScreen {
         }
 
         timeline.setOnFinished(event -> {
-            PauseTransition pause = new PauseTransition(Duration.seconds(0.25));
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.30));
             pause.setOnFinished(e -> {
                 try {
                     Stage stage = (Stage) StockDivinerLogo.getScene().getWindow();
