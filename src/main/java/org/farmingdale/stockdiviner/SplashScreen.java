@@ -52,7 +52,7 @@ public class SplashScreen {
     }
 
     public void Progress() throws IOException {
-        final int maxTime = 5;
+        final int maxTime = 4;
         Timeline timeline = new Timeline();
 
         for (int i = 0; i <= maxTime; i++) {
