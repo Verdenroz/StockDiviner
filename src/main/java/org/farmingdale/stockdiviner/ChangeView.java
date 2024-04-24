@@ -40,4 +40,13 @@ public class ChangeView {
      public void logout(ActionEvent event) throws IOException {
         changeViewTo("welcome-screen", event);
 }
+public void changeViewUsingStageTo(String fileName, Stage stage) throws IOException {
+        fxmlLoader = new FXMLLoader(getClass().getResource(fileName + ".fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+
+}
 }
