@@ -4,22 +4,13 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.EventObject;
-
 public class SplashScreen {
     @FXML
     private ImageView StockDivinerLogo;
@@ -30,7 +21,7 @@ public class SplashScreen {
 
 
 
-    public void initialize() throws IOException {
+    public void initialize()  {
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), StockDivinerLogo);
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
