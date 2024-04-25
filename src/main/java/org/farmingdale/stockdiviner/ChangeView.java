@@ -40,4 +40,20 @@ public class ChangeView {
      public void logout(ActionEvent event) throws IOException {
         changeViewTo("welcome-screen", event);
 }
+
+    /**
+     * this was made for the splash screen to change the view to the welcome screen
+     * @param fileName the name of the file to change the view to
+     * @param stage the stage to change the view to
+     * @throws IOException if the file is not found
+     */
+    public void changeViewUsingStageTo(String fileName, Stage stage) throws IOException {
+        fxmlLoader = new FXMLLoader(getClass().getResource(fileName + ".fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+
+}
 }

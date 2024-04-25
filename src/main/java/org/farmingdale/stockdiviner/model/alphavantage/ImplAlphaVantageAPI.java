@@ -62,7 +62,7 @@ public class ImplAlphaVantageAPI extends Api implements AlphaVantageAPI {
     }
     @Override
     public MonthlyStockData getMonthlyTimeSeries(String symbol) throws IOException {
-        String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_MONTHLY&symbol=" + symbol + "&apikey=" + apiKey;
+        String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=" + symbol;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -94,7 +94,7 @@ public class ImplAlphaVantageAPI extends Api implements AlphaVantageAPI {
 
     @Override
     public WeeklyStockData getWeeklyTimeSeries(String symbol) throws IOException {
-        String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_WEEKLY&symbol=" + symbol + "&apikey=" + apiKey;
+        String url = ALPHA_VANTAGE_URL + "/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=" + symbol + "&apikey=";
 
         Request request = new Request.Builder()
                 .url(url)

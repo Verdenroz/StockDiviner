@@ -19,7 +19,7 @@ public class MonthlyStockDataDeserializer implements JsonDeserializer<MonthlySto
         MonthlyStockData monthlyStockData = new MonthlyStockData();
         Map<LocalDate, MonthlyStockData.MonthlyTimeSeries> monthlyTimeSeries = new HashMap<>();
 
-        JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Monthly Time Series");
+        JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Monthly Adjusted Time Series");
 
         for (Map.Entry<String, JsonElement> entry : timeSeriesObject.entrySet()) {
             MonthlyStockData.MonthlyTimeSeries dataPoint = context.deserialize(entry.getValue(), MonthlyStockData.MonthlyTimeSeries.class);

@@ -8,10 +8,12 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Handles Firestore database connection and operations
@@ -60,6 +62,14 @@ public class FirebaseFirestore {
      */
     public CollectionReference getUsersCollection(){
         return db.collection("users");
+    }
+
+    /**
+     * Get the watchlist collection for a user from Firestore
+     * @param email user email
+     */
+    public CollectionReference getWatchlistCollection(String email){
+        return db.collection("watchlist").document(email).collection("stocks");
     }
 
     /**

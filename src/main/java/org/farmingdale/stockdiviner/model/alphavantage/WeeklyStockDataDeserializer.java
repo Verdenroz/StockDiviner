@@ -16,7 +16,7 @@ public class WeeklyStockDataDeserializer implements JsonDeserializer<WeeklyStock
         WeeklyStockData weeklyStockData = new WeeklyStockData();
         Map<LocalDate, WeeklyStockData.WeeklyTimeSeries> weeklyTimeSeries = new HashMap<>();
 
-        JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Weekly Time Series");
+        JsonObject timeSeriesObject = jsonObject.getAsJsonObject("Weekly Adjusted Time Series");
 
         for (Map.Entry<String, JsonElement> entry : timeSeriesObject.entrySet()) {
             WeeklyStockData.WeeklyTimeSeries dataPoint = context.deserialize(entry.getValue(), WeeklyStockData.WeeklyTimeSeries.class);

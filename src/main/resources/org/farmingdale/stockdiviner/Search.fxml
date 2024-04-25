@@ -10,46 +10,38 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="900.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.SearchController">
    <top>
       <HBox prefHeight="60.0" prefWidth="200.0" spacing="100.0" styleClass="green-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="60.0" prefWidth="216.0">
-               <children>
-                  <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-user-30.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label fx:id="userNameLabel" prefHeight="49.0" prefWidth="124.0" text="username" textFill="WHITE">
-                     <font>
-                        <Font name="Berlin Sans FB" size="19.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <Label prefHeight="58.0" prefWidth="369.0" text="Stock Diviner" textFill="#fffefe">
+         <HBox prefHeight="60.0" prefWidth="216.0">
+            <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+               <Image url="@images/icons8-user-30.png" />
+            </ImageView>
+            <Label fx:id="userNameLabel" prefHeight="49.0" prefWidth="124.0" text="username" textFill="WHITE">
                <font>
-                  <Font name="Berlin Sans FB" size="46.0" />
+                  <Font name="Berlin Sans FB" size="19.0" />
                </font>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
             </Label>
-            <AnchorPane prefHeight="60.0" prefWidth="141.0">
-               <children>
-                  <Button layoutX="1.0" layoutY="15.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="111.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
-                     <font>
-                        <Font name="Berlin Sans FB" size="12.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="blue-background" />
-                        <String fx:value="border" />
-                     </styleClass>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </children>
+         </HBox>
+         <Label prefHeight="58.0" prefWidth="369.0" text="Stock Diviner" textFill="#fffefe">
+            <font>
+               <Font name="Berlin Sans FB" size="46.0" />
+            </font>
+         </Label>
+         <AnchorPane prefHeight="60.0" prefWidth="141.0">
+            <Button layoutX="1.0" layoutY="15.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="111.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
+               <font>
+                  <Font name="Berlin Sans FB" size="12.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="blue-background" />
+                  <String fx:value="border" />
+               </styleClass>
+            </Button>
+         </AnchorPane>
       </HBox>
    </top>
    <left>
@@ -60,107 +52,61 @@
       </VBox>
    </left>
    <bottom>
-      <VBox prefHeight="326.0" prefWidth="900.0" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="134.0" prefWidth="900.0">
-               <children>
-                  <Label layoutX="384.0" layoutY="48.0" text="Indicators">
-                     <font>
-                        <Font name="Berlin Sans FB" size="33.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Pane prefHeight="100.0" prefWidth="202.0" />
-                  <ToggleButton fx:id="ChineseNewYearsButton" disable="true" mnemonicParsing="false" onAction="#whatIsSelected" prefHeight="86.0" prefWidth="206.0" text="Chinese New Years" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="indicators" />
-                     </toggleGroup>
-                     <styleClass>
-                        <String fx:value="black-background" />
-                        <String fx:value="button-shadows" />
-                     </styleClass>
-                  </ToggleButton>
-                  <ToggleButton fx:id="lunarPhasesButton" disable="true" mnemonicParsing="false" onAction="#whatIsSelected" prefHeight="86.0" prefWidth="179.0" text="Lunar Phases" textFill="WHITE" toggleGroup="$indicators">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="black-background" />
-                        <String fx:value="button-shadows" />
-                     </styleClass>
-                  </ToggleButton>
-                  <ToggleButton fx:id="zodiacSignsButton" disable="true" mnemonicParsing="false" onAction="#whatIsSelected" prefHeight="86.0" prefWidth="179.0" text="Zodiac Sings" textFill="WHITE" toggleGroup="$indicators">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="black-background" />
-                        <String fx:value="button-shadows" />
-                     </styleClass>
-                  </ToggleButton>
-                  <Pane prefHeight="100.0" prefWidth="202.0" />
-               </children>
-            </HBox>
-         </children>
+      <VBox alignment="TOP_CENTER" prefHeight="291.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+         <AnchorPane prefHeight="213.0" prefWidth="900.0">
+            <Label layoutX="387.0" layoutY="49.0" text="Watchlist">
+               <font>
+                  <Font name="Berlin Sans FB" size="33.0" />
+               </font>
+            </Label>
+            <ListView fx:id="watchListView" layoutX="46.0" layoutY="103.0" orientation="HORIZONTAL" prefHeight="149.0" prefWidth="821.0" styleClass="stock-label" stylesheets="@styles.css">
+               <padding>
+                  <Insets bottom="25.0" left="10.0" right="10.0" top="25.0" />
+               </padding>
+            </ListView>
+         </AnchorPane>
       </VBox>
    </bottom>
    <right>
       <Pane prefHeight="391.0" prefWidth="202.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <VBox prefHeight="381.0" prefWidth="495.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="47.0" prefWidth="507.0" stylesheets="@styles.css">
-               <children>
-                  <TextField fx:id="searchBarTextField" onKeyReleased="#populateListWithStocksWhenType" prefHeight="40.0" prefWidth="381.0" promptText="Search Stock" styleClass="transparent-background" stylesheets="@styles.css">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <ImageView fitHeight="58.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="white-background">
-                     <image>
-                        <Image url="@images/icons8-search-50.png" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#onPickStockButtonClicked" prefHeight="46.0" prefWidth="107.0" stylesheets="@styles.css" text="Pick Stock" textFill="WHITE">
-                     <styleClass>
-                        <String fx:value="round-layout" />
-                        <String fx:value="black-background" />
-                     </styleClass>
-                  </Button>
-               </children>
-               <styleClass>
-                  <String fx:value="white-background" />
-                  <String fx:value="round-layout" />
-                  <String fx:value="button-shadows" />
-               </styleClass>
-            </HBox>
-            <ListView fx:id="searchResultsListView" onMouseClicked="#fromListCellToTextField" prefHeight="144.0" prefWidth="495.0" stylesheets="@styles.css" visible="false" />
-            <AnchorPane prefHeight="72.0" prefWidth="495.0" />
-            <Pane prefHeight="135.0" prefWidth="495.0">
-               <children>
-                  <Label fx:id="stockNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="50.0" prefHeight="39.0" prefWidth="469.0" styleClass="grey-background" stylesheets="@styles.css" visible="false">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="174.0" layoutY="10.0" prefHeight="40.0" prefWidth="147.0" text="Intial Stock:">
-                     <font>
-                        <Font name="Berlin Sans FB" size="28.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
+      <VBox alignment="CENTER" prefHeight="500.0" prefWidth="530.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets top="20.0" />
          </padding>
+         <HBox prefHeight="47.0" prefWidth="507.0" stylesheets="@styles.css">
+            <styleClass>
+               <String fx:value="white-background" />
+               <String fx:value="round-layout" />
+               <String fx:value="button-shadows" />
+            </styleClass>
+            <TextField fx:id="searchBarTextField" onKeyReleased="#populateListWithStocksWhenType" prefHeight="40.0" prefWidth="381.0" promptText="Search Stock" styleClass="transparent-background" stylesheets="@styles.css">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="58.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="white-background">
+               <Image url="@images/icons8-search-50.png" />
+            </ImageView>
+            <Button mnemonicParsing="false" onAction="#onPickStockButtonClicked" prefHeight="46.0" prefWidth="107.0" stylesheets="@styles.css" text="Pick Stock" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="round-layout" />
+                  <String fx:value="black-background" />
+               </styleClass>
+            </Button>
+         </HBox>
+         <ListView fx:id="searchResultsListView" onMouseClicked="#fromListCellToTextField" prefHeight="181.0" prefWidth="496.0" styleClass="stock-label" stylesheets="@styles.css" visible="false" />
+         <TextFlow fx:id="stockInfoArea" prefHeight="117.0" prefWidth="495.0" stylesheets="@styles.css" textAlignment="CENTER" visible="false" />
+         <Button fx:id="analysisButton" mnemonicParsing="false" onAction="#onAnalysisButtonClicked" prefHeight="25.0" prefWidth="135.0" stylesheets="@styles.css" text="See Analysis" textAlignment="CENTER" textFill="WHITE" visible="false">
+            <styleClass>
+               <String fx:value="black-background" />
+               <String fx:value="round-layout" />
+            </styleClass>
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0" />
+            </VBox.margin>
+         </Button>
       </VBox>
    </center>
 </BorderPane>
