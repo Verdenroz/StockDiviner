@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -8,7 +9,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,45 +21,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="741.0" styleClass="grey-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.InfoScreenController">
-   <top>
-      <StackPane prefHeight="28.0" prefWidth="742.0" styleClass="green-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="green-background" stylesheets="@styles.css">
-               <children>
-                  <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="402.0" styleClass="green-background" stylesheets="@styles.css">
-                     <items>
-                        <Button mnemonicParsing="false" text="Profile" />
-                     </items>
-                  </ToolBar>
-                  <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="371.0" styleClass="green-background" stylesheets="@styles.css">
-                     <items>
-                        <Button mnemonicParsing="false" text="Log Out" />
-                     </items>
-                  </ToolBar>
-               </children>
-            </HBox>
-            <Label contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" text="Stock Diviner" textFill="WHITE" textOverrun="CLIP">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="900.0" styleClass="grey-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.InfoScreenController">
    <center>
       <StackPane prefHeight="380.0" prefWidth="0.0" styleClass="greenish-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="380.0" prefWidth="50.0" spacing="10.0">
                <children>
-                  <HBox prefHeight="190.0" prefWidth="742.0">
+                  <HBox prefHeight="383.0" prefWidth="870.0">
                      <children>
-                        <LineChart fx:id="priceChart" prefHeight="219.0" prefWidth="484.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
+                        <LineChart fx:id="priceChart" prefHeight="334.0" prefWidth="599.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis label="Price ($)" side="LEFT" upperBound="1000.0" />
+                            <NumberAxis fx:id="yaxis" label="Price ($)" side="LEFT" upperBound="1000.0" />
                           </yAxis>
                            <padding>
                               <Insets left="10.0" right="10.0" />
@@ -65,9 +43,9 @@
                               <Insets left="15.0" right="15.0" top="10.0" />
                            </HBox.margin>
                         </LineChart>
-                        <VBox prefHeight="219.0" prefWidth="181.0" styleClass="white-background" stylesheets="@styles.css">
+                        <VBox prefHeight="185.0" prefWidth="226.0" styleClass="white-background" stylesheets="@styles.css">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="224.0" text="Indicators" textAlignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="350.0" text="Indicators" textAlignment="CENTER">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
@@ -75,7 +53,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefHeight="148.0" prefWidth="174.0" spacing="30.0">
+                              <VBox alignment="CENTER" prefHeight="366.0" prefWidth="226.0" spacing="30.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" selected="true" text="Zodiac Signs">
                                        <toggleGroup>
@@ -266,4 +244,48 @@
          </BorderPane.margin>
       </StackPane>
    </center>
+   <top>
+      <HBox prefHeight="60.0" prefWidth="200.0" spacing="100.0" styleClass="green-background" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="216.0">
+               <children>
+                  <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@images/icons8-user-30.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="userNameLabel" prefHeight="49.0" prefWidth="124.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="58.0" prefWidth="369.0" text="Stock Diviner" textFill="#fffefe">
+               <font>
+                  <Font name="Berlin Sans FB" size="46.0" />
+               </font>
+            </Label>
+            <AnchorPane prefHeight="60.0" prefWidth="141.0">
+               <children>
+                  <Button layoutX="1.0" layoutY="15.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="111.0" stylesheets="@styles.css" text="Log Out" textFill="#e8e0e0">
+                     <font>
+                        <Font name="Berlin Sans FB" size="12.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="blue-background" />
+                        <String fx:value="border" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
