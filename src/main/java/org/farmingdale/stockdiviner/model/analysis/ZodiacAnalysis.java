@@ -1,6 +1,5 @@
 package org.farmingdale.stockdiviner.model.analysis;
 
-import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.MonthlyStockData;
 import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
 import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
@@ -22,7 +21,7 @@ public class ZodiacAnalysis extends Analysis {
     public ZodiacAnalysis(String stockSymbol) throws Exception {
         super(stockSymbol);
         this.zodiacCalculator = ZodiacCalculator.getInstance();
-        this.monthlyStockData = ImplAlphaVantageAPI.getInstance().getMonthlyTimeSeries(stockSymbol);
+        this.monthlyStockData = api.getMonthlyTimeSeries(stockSymbol);
         this.analyze();
     }
 
