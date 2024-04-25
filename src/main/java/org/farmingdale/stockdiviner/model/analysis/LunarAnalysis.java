@@ -1,6 +1,5 @@
 package org.farmingdale.stockdiviner.model.analysis;
 
-import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.WeeklyStockData;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
@@ -20,7 +19,7 @@ public class LunarAnalysis extends Analysis {
     public LunarAnalysis(String stockSymbol) throws Exception {
         super(stockSymbol);
         this.lunarCalculator = ImplLunarCalculatorAPI.getInstance();
-        this.weeklyStockData = ImplAlphaVantageAPI.getInstance().getWeeklyTimeSeries(stockSymbol);
+        this.weeklyStockData = api.getWeeklyTimeSeries(stockSymbol);
         this.analyze();
     }
 
