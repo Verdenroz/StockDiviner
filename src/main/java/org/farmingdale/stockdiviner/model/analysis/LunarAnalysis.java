@@ -4,10 +4,12 @@ import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.WeeklyStockData;
 import org.farmingdale.stockdiviner.model.lunar.ImplLunarCalculatorAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This class is used to analyze the stock data based on the Lunar Phases.
@@ -16,6 +18,7 @@ import java.util.Map;
 public class LunarAnalysis extends Analysis {
     private final ImplLunarCalculatorAPI lunarCalculator;
     private final WeeklyStockData weeklyStockData;
+    private Map<LunarPhase, Map<LocalDate, Double>> priceSeries;
 
     public LunarAnalysis(String stockSymbol) throws Exception {
         super(stockSymbol);
@@ -27,7 +30,7 @@ public class LunarAnalysis extends Analysis {
     @Override
     void analyze() throws Exception {
         Map<LocalDate, LunarPhase> lunarPhases = lunarCalculator.getLunarPhase(LocalDate.now().minusYears(2));
-        Map<LocalDate, Double> lunarPrices = new HashMap<>();
+        Map<LocalDate, Double> lunarPrices = new TreeMap<>();
 
         //gets the closest date to the lunar phase date
         for (LocalDate lunarDate : lunarPhases.keySet()) {
@@ -47,7 +50,7 @@ public class LunarAnalysis extends Analysis {
         //maps the lunar prices to the lunar phase
         for (Map.Entry<LocalDate, Double> entry : lunarPrices.entrySet()) {
             LunarPhase phase = lunarPhases.get(entry.getKey());
-            lunarPhasePrices.computeIfAbsent(phase, k -> new HashMap<>()).put(entry.getKey(), entry.getValue());
+            lunarPhasePrices.computeIfAbsent(phase, k -> new TreeMap<>()).put(entry.getKey(), entry.getValue());
         }
         //System.out.println("lunarPhasePrices after mapping prices: " + lunarPhasePrices);
 
@@ -75,6 +78,10 @@ public class LunarAnalysis extends Analysis {
         this.worstIndicator = worstLunarPhase;
         this.bestStat = Math.ceil(bestAveragePrice * 100.0) / 100.0;
         this.worstStat = Math.ceil(worstAveragePrice * 100.0) / 100.0;
+        this.priceSeries = lunarPhasePrices;
+    }
+    public Map<LunarPhase, Map<LocalDate, Double>> getPriceSeries() {
+        return this.priceSeries;
     }
 
 }

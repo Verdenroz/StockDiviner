@@ -4,11 +4,11 @@ import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.MonthlyStockData;
 import org.farmingdale.stockdiviner.model.animals.ChineseAnimals;
 import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
+import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is used to analyze the stock data based on the Chinese Zodiac.
@@ -18,6 +18,8 @@ public class AnimalAnalysis extends Analysis {
     private final MonthlyStockData monthlyStockData;
     private final ChineseNewYears chineseNewYears;
     private final Map<Integer, ChineseAnimals> animalDates;
+    private Map<ChineseAnimals, Map<LocalDate, Double>> priceSeries;
+
 
     public AnimalAnalysis(String stockSymbol) throws Exception {
         super(stockSymbol);
@@ -29,6 +31,7 @@ public class AnimalAnalysis extends Analysis {
 
     @Override
     void analyze() {
+        priceSeries = new HashMap<ChineseAnimals, Map<LocalDate, Double>>();
         LocalDate currentDate = LocalDate.now();
         // Convert the keySet to an ArrayList
         ArrayList<LocalDate> keys = new ArrayList<>(monthlyStockData.getMonthlyTimeSeries().keySet());
@@ -56,10 +59,30 @@ public class AnimalAnalysis extends Analysis {
 
             while (!monthlyStockData.getMonthlyTimeSeries().containsKey(endYear)) {
                 endYear = endYear.minusDays(1);
+//                System.out.printf(animal + " ?end year? " + endYear + " | ");
             }
+            System.out.println();
             while (!monthlyStockData.getMonthlyTimeSeries().containsKey(startYear)) {
                 startYear = startYear.minusDays(1);
+//                System.out.printf(animal + " ?start year? " + startYear + " | ");
             }
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//            System.out.println(animal + ", " + startYear + ", " + endYear);
+
+            Map<LocalDate, Double> animalPriceSeries = new TreeMap<LocalDate, Double>();
+            LocalDate finalStartDate = startYear;
+            LocalDate finalEndYear = endYear;
+//            System.out.println("final start date "+finalStartDate+", final end date "+finalEndYear);
+            monthlyStockData.getMonthlyTimeSeries().forEach((month, stock) -> {
+                        if (month.isAfter(finalStartDate) && month.isBefore(finalEndYear)) {
+                            animalPriceSeries.put(month, Double.parseDouble(stock.getClose()));
+                        }
+                        else if (month.isEqual(finalStartDate) || month.isEqual(finalEndYear)) {
+                            animalPriceSeries.put(month, Double.parseDouble(stock.getClose()));
+                        }
+                    }
+            );
+            priceSeries.put(animal, animalPriceSeries);
 
             try {
                 double startPrice = Double.parseDouble(monthlyStockData.getMonthlyTimeSeries().get(startYear).getClose());
@@ -102,4 +125,9 @@ public class AnimalAnalysis extends Analysis {
     public Map<Integer, ChineseAnimals> getAnimalDates() {
         return animalDates;
     }
+
+    public Map<ChineseAnimals, Map<LocalDate, Double>> getPriceSeries() {
+        return this.priceSeries;
+    }
+
 }

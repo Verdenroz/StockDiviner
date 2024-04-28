@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -27,9 +28,9 @@
          <children>
             <VBox prefHeight="380.0" prefWidth="50.0" spacing="10.0">
                <children>
-                  <HBox prefHeight="383.0" prefWidth="870.0">
+                  <HBox prefHeight="483.0" prefWidth="870.0">
                      <children>
-                        <LineChart fx:id="priceChart" prefHeight="334.0" prefWidth="599.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
+                        <LineChart fx:id="priceChart" prefHeight="403.0" prefWidth="678.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
@@ -43,7 +44,7 @@
                               <Insets left="15.0" right="15.0" top="10.0" />
                            </HBox.margin>
                         </LineChart>
-                        <VBox prefHeight="185.0" prefWidth="226.0" styleClass="white-background" stylesheets="@styles.css">
+                        <VBox prefHeight="414.0" prefWidth="147.0" styleClass="white-background" stylesheets="@styles.css">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="350.0" text="Indicators" textAlignment="CENTER">
                                  <VBox.margin>
@@ -53,15 +54,31 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefHeight="366.0" prefWidth="226.0" spacing="30.0">
+                              <VBox alignment="CENTER" prefHeight="170.0" prefWidth="147.0" spacing="30.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" selected="true" text="Zodiac Signs">
+                                    <RadioButton fx:id="zodiacRadioButton" mnemonicParsing="false" onAction="#handleZodiacRadioButton" selected="true" text="Zodiac Signs">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="indicators" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Lunar Phases" toggleGroup="$indicators" />
-                                    <RadioButton mnemonicParsing="false" text="Chinese New Years" toggleGroup="$indicators" />
+                                    <RadioButton fx:id="lunarRadioButton" mnemonicParsing="false" onAction="#handleMoonRadioButton" text="Lunar Phases" toggleGroup="$indicators" />
+                                    <RadioButton fx:id="animalRadioButton" mnemonicParsing="false" onAction="#handleAnimalRadioButton" text="Chinese New Years" toggleGroup="$indicators" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="158.0" text="Charts" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                 <children>
+                                    <ComboBox fx:id="charts" onAction="#handleChartSelect" prefHeight="26.0" prefWidth="134.0" promptText="Choose a chart" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
@@ -77,9 +94,9 @@
                         <Insets bottom="10.0" />
                      </opaqueInsets>
                   </HBox>
-                  <HBox prefHeight="265.0" prefWidth="742.0">
+                  <HBox prefHeight="162.0" prefWidth="870.0">
                      <children>
-                        <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="130.0" prefWidth="500.0" styleClass="white-background" stylesheets="@styles.css">
+                        <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="152.0" prefWidth="470.0" styleClass="white-background" stylesheets="@styles.css">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.20001220703125" minWidth="10.0" prefWidth="191.59998779296876" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.39999999999998" minWidth="10.0" prefWidth="142.80001220703124" />
@@ -90,7 +107,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <HBox alignment="CENTER_LEFT">
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="203.0">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
@@ -194,7 +211,7 @@
                               <Insets bottom="10.0" left="15.0" right="10.0" />
                            </HBox.margin>
                         </GridPane>
-                        <GridPane prefHeight="130.0" prefWidth="500.0" styleClass="white-background" stylesheets="@styles.css">
+                        <GridPane prefHeight="152.0" prefWidth="360.0" styleClass="white-background" stylesheets="@styles.css">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.99996795654297" minWidth="10.0" prefWidth="130.400048828125" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.4000244140625" minWidth="10.0" prefWidth="128.799951171875" />
