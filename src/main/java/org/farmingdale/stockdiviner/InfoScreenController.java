@@ -13,6 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.farmingdale.stockdiviner.model.Indicator;
 import org.farmingdale.stockdiviner.model.alphavantage.AlphaVantageAPI;
@@ -24,6 +26,9 @@ import org.farmingdale.stockdiviner.model.analysis.AnimalAnalysis;
 import org.farmingdale.stockdiviner.model.analysis.LunarAnalysis;
 import org.farmingdale.stockdiviner.model.analysis.ZodiacAnalysis;
 import org.farmingdale.stockdiviner.model.animals.ChineseAnimals;
+import org.farmingdale.stockdiviner.model.financialmodeling.FinancialModelingAPI;
+import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
+import org.farmingdale.stockdiviner.model.financialmodeling.ImplFinancialModelingAPI;
 import org.farmingdale.stockdiviner.model.lunar.LunarPhase;
 import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
 
@@ -69,10 +74,19 @@ public class InfoScreenController {
     public RadioButton lunarRadioButton;
     @FXML
     public RadioButton animalRadioButton;
+    @FXML
+    public FlowPane indicatorStatPane;
+    @FXML
+    public FlowPane bestWorstContianer;
+    @FXML
+    private Label userNameLabel;
+
     public void initialize() throws Exception { // get actual api data
         SharedService sharedService = SharedService.getInstance();
         symbol = sharedService.getData().getSymbol();
         String stockName = sharedService.getData().getName();
+
+        userNameLabel.setText(sharedService.getUser().getDisplayName());
 
         api = ImplAlphaVantageAPI.getInstance();
         weeklyTimeSeries = api.getWeeklyTimeSeries(symbol).getWeeklyTimeSeries();
@@ -92,23 +106,52 @@ public class InfoScreenController {
 
         charts.getItems().addAll(zodiacPriceSeries.keySet());
 
-        weekRangeValue.setText(weekRange52);
-        volumeValue.setText(volume);
-        avgVolumeValue.setText(avgVolume);
-        marketCapValue.setText(marketCap);
-        PERatioValue.setText(peRatio);
-        EPSValue.setText(eps);
+        FinancialModelingAPI api = ImplFinancialModelingAPI.getInstance();
+        FullQuoteData result = api.getFullQuoteData(symbol);
+
+        weekRangeValue.setText(result.getYearLow() + " - " + result.getYearHigh());
+        volumeValue.setText(String.valueOf(result.getVolume()));
+        avgVolumeValue.setText(String.valueOf(result.getAvgVolume()));
+        marketCapValue.setText(String.valueOf(result.getMarketCap()));
 
         priceChart.setLegendVisible(false);
         priceChart.getData().add(s);
         priceChart.setCreateSymbols(false);
         priceChart.setTitle(stockName);
         priceChart.setAnimated(false);
+
+        String bestIndicator = zodiacAnalysis.getBestIndicator().getDisplayName();
+        String worstIndicator = zodiacAnalysis.getWorstIndicator().getDisplayName();
+        Double bestStat = zodiacAnalysis.getBestStat();
+        Double worstStat = zodiacAnalysis.getWorstStat();
+        Map<Indicator, Double> analyses = zodiacAnalysis.getAnalyses();
+
+        Label bestIndicatorLabel = new Label("Best Zodiac: " + bestIndicator + " $" + bestStat.toString());
+        Label worstIndicatorLabel = new Label("Worst Zodiac: " + worstIndicator + " $" + worstStat.toString());
+
+        bestIndicatorLabel.setStyle("-fx-font-size: 14px");
+        worstIndicatorLabel.setStyle("-fx-font-size: 14px");
+
+        bestWorstContianer.getChildren().add(bestIndicatorLabel);
+        bestWorstContianer.getChildren().add(worstIndicatorLabel);
+
+        for (Map.Entry<Indicator, Double> entry: analyses.entrySet()) {
+            String indic = entry.getKey().getDisplayName();
+            Double val = entry.getValue();
+
+            Label indicatorAndValLabel = new Label(indic + ": $" + val);
+            indicatorAndValLabel.setStyle("-fx-font-size: 12px");
+
+            indicatorStatPane.getChildren().add(indicatorAndValLabel);
+        }
     }
 
     public void handleZodiacRadioButton(ActionEvent event) throws IOException {
         priceChart.getData().clear();
         charts.getItems().clear();
+        indicatorStatPane.getChildren().clear();
+        bestWorstContianer.getChildren().clear();
+
         Map<ZodiacSigns, Map<LocalDate, Double>> zodiacPriceSeries = zodiacAnalysis.getPriceSeries();
         charts.getItems().addAll(zodiacPriceSeries.keySet());
         //charts.setValue(ZodiacSigns.AQUARIUS);
@@ -117,10 +160,39 @@ public class InfoScreenController {
 
         XYChart.Series<String, Double> s = maximumData(listWeeklyTimeSeries);
         priceChart.getData().add(s);
+
+        String bestIndicator = zodiacAnalysis.getBestIndicator().getDisplayName();
+        String worstIndicator = zodiacAnalysis.getWorstIndicator().getDisplayName();
+        Double bestStat = zodiacAnalysis.getBestStat();
+        Double worstStat = zodiacAnalysis.getWorstStat();
+        Map<Indicator, Double> analyses = zodiacAnalysis.getAnalyses();
+
+
+        Label bestIndicatorLabel = new Label("Best Zodiac: " + bestIndicator + " $" + bestStat.toString());
+        Label worstIndicatorLabel = new Label("Worst Zodiac: " + worstIndicator + " $" + worstStat.toString());
+
+        bestIndicatorLabel.setStyle("-fx-font-size: 14px");
+        worstIndicatorLabel.setStyle("-fx-font-size: 14px");
+
+        bestWorstContianer.getChildren().add(bestIndicatorLabel);
+        bestWorstContianer.getChildren().add(worstIndicatorLabel);
+
+        for (Map.Entry<Indicator, Double> entry: analyses.entrySet()) {
+            String indic = entry.getKey().getDisplayName();
+            Double val = entry.getValue();
+
+            Label indicatorAndValLabel = new Label(indic + ": $" + val);
+            indicatorAndValLabel.setStyle("-fx-font-size: 12px");
+
+            indicatorStatPane.getChildren().add(indicatorAndValLabel);
+        }
     }
     public void handleAnimalRadioButton(ActionEvent event) throws IOException {
         priceChart.getData().clear();
         charts.getItems().clear();
+        indicatorStatPane.getChildren().clear();
+        bestWorstContianer.getChildren().clear();
+
         Map<ChineseAnimals, Map<LocalDate, Double>> animalPriceSeries = animalAnalysis.getPriceSeries();
         charts.getItems().addAll(animalPriceSeries.keySet());
         //charts.setValue(ChineseAnimals.RAT);
@@ -129,10 +201,39 @@ public class InfoScreenController {
 
         XYChart.Series<String, Double> s = maximumData(listWeeklyTimeSeries);
         priceChart.getData().add(s);
+
+        String bestIndicator = animalAnalysis.getBestIndicator().getDisplayName();
+        String worstIndicator = animalAnalysis.getWorstIndicator().getDisplayName();
+        Double bestStat = animalAnalysis.getBestStat();
+        Double worstStat = animalAnalysis.getWorstStat();
+        Map<Indicator, Double> analyses = animalAnalysis.getAnalyses();
+
+        Label bestIndicatorLabel = new Label("Best Animal: " + bestIndicator + " " + bestStat.toString() + "%");
+        Label worstIndicatorLabel = new Label("Worst Animal: " + worstIndicator + " " + worstStat.toString() + "%");
+
+        bestIndicatorLabel.setStyle("-fx-font-size: 14px");
+        worstIndicatorLabel.setStyle("-fx-font-size: 14px");
+
+        bestWorstContianer.getChildren().add(bestIndicatorLabel);
+        bestWorstContianer.getChildren().add(worstIndicatorLabel);
+
+        for (Map.Entry<Indicator, Double> entry: analyses.entrySet()) {
+            String indic = entry.getKey().getDisplayName();
+            Double val = entry.getValue();
+
+            Label indicatorAndValLabel = new Label(indic + ": " + val + "%");
+            indicatorAndValLabel.setStyle("-fx-font-size: 12px");
+
+
+            indicatorStatPane.getChildren().add(indicatorAndValLabel);
+        }
     }
     public void handleMoonRadioButton(ActionEvent event) throws IOException {
         priceChart.getData().clear();
         charts.getItems().clear();
+        indicatorStatPane.getChildren().clear();
+        bestWorstContianer.getChildren().clear();
+
         Map<LunarPhase, Map<LocalDate, Double>> lunarPriceSeries = lunarAnalysis.getPriceSeries();
         charts.getItems().addAll(lunarPriceSeries.keySet());
         //charts.setValue(LunarPhase.FULL_MOON);
@@ -141,6 +242,32 @@ public class InfoScreenController {
 
         XYChart.Series<String, Double> s = maximumData(listWeeklyTimeSeries);
         priceChart.getData().add(s);
+
+        String bestIndicator = lunarAnalysis.getBestIndicator().getDisplayName();
+        String worstIndicator = lunarAnalysis.getWorstIndicator().getDisplayName();
+        Double bestStat = lunarAnalysis.getBestStat();
+        Double worstStat = lunarAnalysis.getWorstStat();
+        Map<Indicator, Double> analyses = lunarAnalysis.getAnalyses();
+
+
+        Label bestIndicatorLabel = new Label("Best Phase: " + bestIndicator + " $" + bestStat.toString());
+        Label worstIndicatorLabel = new Label("Worst Phase: " + worstIndicator + " $" + worstStat.toString());
+
+        bestIndicatorLabel.setStyle("-fx-font-size: 14px");
+        worstIndicatorLabel.setStyle("-fx-font-size: 14px");
+
+        bestWorstContianer.getChildren().add(bestIndicatorLabel);
+        bestWorstContianer.getChildren().add(worstIndicatorLabel);
+
+        for (Map.Entry<Indicator, Double> entry: analyses.entrySet()) {
+            String indic = entry.getKey().getDisplayName();
+            Double val = entry.getValue();
+
+            Label indicatorAndValLabel = new Label(indic + ": $" + val);
+            indicatorAndValLabel.setStyle("-fx-font-size: 12px");
+
+            indicatorStatPane.getChildren().add(indicatorAndValLabel);
+        }
     }
 
     public void handleChartSelect(ActionEvent event) {
@@ -195,60 +322,8 @@ public class InfoScreenController {
     }
     ChangeView changeView = ChangeView.getInstance();
 
-    private final PauseTransition pause = new PauseTransition(Duration.seconds(0.25));
-
     public void onLogOutButtonClicked(ActionEvent event) throws IOException {
         changeView.logout(event);
     }
-//    private XYChart.Series<String, Double> FiftyTwoWeek(List<Map.Entry<LocalDate, WeeklyStockData.WeeklyTimeSeries>> listWeeklyTimeSeries) {
-//        //1 yr
-//
-//        XYChart.Series<String, Double> series = new XYChart.Series<>();
-//        for (int i = listWeeklyTimeSeries.size() - 52; i < listWeeklyTimeSeries.size(); i++) {
-//            String date = listWeeklyTimeSeries.get(i).getKey().toString();
-//            Double price = Double.parseDouble(listWeeklyTimeSeries.get(i).getValue().getClose());
-//
-//            series.getData().add(new XYChart.Data<>(date, price));
-//            System.out.println(date + ", " + price);
-//        }
-//        return series;
-//    }
-//    private XYChart.Series<String, Double> FiveYear(List<Map.Entry<LocalDate, WeeklyStockData.WeeklyTimeSeries>> listWeeklyTimeSeries) {
-//        //1 yr
-//        XYChart.Series<String, Double> series = new XYChart.Series<>();
-//        for (int i = listWeeklyTimeSeries.size() - 260; i < listWeeklyTimeSeries.size(); i++) {
-//            String date = listWeeklyTimeSeries.get(i).getKey().toString();
-//            Double price = Double.parseDouble(listWeeklyTimeSeries.get(i).getValue().getClose());
-//
-//            series.getData().add(new XYChart.Data<>(date, price));
-//            System.out.println(date + ", " + price);
-//        }
-//        return series;
-//    }
-//    private XYChart.Series<String, Double> SixMonth(List<Map.Entry<LocalDate, WeeklyStockData.WeeklyTimeSeries>> listWeeklyTimeSeries) {
-//        //1 yr
-//        XYChart.Series<String, Double> series = new XYChart.Series<>();
-//        for (int i = listWeeklyTimeSeries.size() - 24; i < listWeeklyTimeSeries.size(); i++) {
-//            String date = listWeeklyTimeSeries.get(i).getKey().toString();
-//            Double price = Double.parseDouble(listWeeklyTimeSeries.get(i).getValue().getClose());
-//
-//            series.getData().add(new XYChart.Data<>(date, price));
-//            System.out.println(date + ", " + price);
-//        }
-//        return series;
-//    }
-//    private XYChart.Series<String, Double> OneMonth(List<Map.Entry<LocalDate, WeeklyStockData.WeeklyTimeSeries>> listWeeklyTimeSeries) {
-//        //1 yr
-//        XYChart.Series<String, Double> series = new XYChart.Series<>();
-//        for (int i = listWeeklyTimeSeries.size() - 4; i < listWeeklyTimeSeries.size(); i++) {
-//            String date = listWeeklyTimeSeries.get(i).getKey().toString();
-//            Double price = Double.parseDouble(listWeeklyTimeSeries.get(i).getValue().getClose());
-//
-//            series.getData().add(new XYChart.Data<>(date, price));
-//            System.out.println(date + ", " + price);
-//        }
-//        return series;
-//    }
-
 }
 

@@ -14,10 +14,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -28,11 +26,11 @@
          <children>
             <VBox prefHeight="380.0" prefWidth="50.0" spacing="10.0">
                <children>
-                  <HBox prefHeight="483.0" prefWidth="870.0">
+                  <HBox prefHeight="471.0" prefWidth="870.0">
                      <children>
-                        <LineChart fx:id="priceChart" prefHeight="403.0" prefWidth="678.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
+                        <LineChart fx:id="priceChart" prefHeight="446.0" prefWidth="678.0" styleClass="white-background" stylesheets="@styles.css" title="Stock Name">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <CategoryAxis prefWidth="582.0" side="BOTTOM" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis fx:id="yaxis" label="Price ($)" side="LEFT" upperBound="1000.0" />
@@ -94,163 +92,123 @@
                         <Insets bottom="10.0" />
                      </opaqueInsets>
                   </HBox>
-                  <HBox prefHeight="162.0" prefWidth="870.0">
+                  <HBox prefHeight="185.0" prefWidth="870.0">
                      <children>
-                        <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="152.0" prefWidth="470.0" styleClass="white-background" stylesheets="@styles.css">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.20001220703125" minWidth="10.0" prefWidth="191.59998779296876" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.39999999999998" minWidth="10.0" prefWidth="142.80001220703124" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="203.0">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin>
-                                 <children>
-                                    <Label fx:id="weekRange52" alignment="CENTER" contentDisplay="CENTER" text="52 Week Range: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="weekRangeValue" text="weekRangeValue">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin>
-                                 <children>
-                                    <Label fx:id="volume" text="Volume: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets left="10.0" />
-                                       </opaqueInsets>
-                                    </Label>
-                                    <Label fx:id="volumeValue" text="volumeLabel">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin>
-                                 <children>
-                                    <Label fx:id="avgVolume" text="Avg. Volume: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="avgVolumeValue" text="Label">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
-                                 <children>
-                                    <Label fx:id="marketCap" text="Market Cap: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="marketCapValue" text="marketCapValue">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label fx:id="PERatio" text="PE Ratio: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="PERatioValue" text="PERatioValue">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label fx:id="EPS" text="EPS: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="EPSValue" text="Label">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <opaqueInsets>
-                              <Insets left="10.0" top="10.0" />
-                           </opaqueInsets>
+                        <VBox>
                            <HBox.margin>
                               <Insets bottom="10.0" left="15.0" right="10.0" />
                            </HBox.margin>
-                        </GridPane>
-                        <GridPane prefHeight="152.0" prefWidth="360.0" styleClass="white-background" stylesheets="@styles.css">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.99996795654297" minWidth="10.0" prefWidth="130.400048828125" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.4000244140625" minWidth="10.0" prefWidth="128.799951171875" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="106.99997940063477" minHeight="10.0" prefHeight="106.99997940063477" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="83.60001220703126" minHeight="10.0" prefHeight="38.400020599365234" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="119.60001220703128" minHeight="10.0" prefHeight="119.60001220703128" vgrow="SOMETIMES" />
-                          </rowConstraints>
                            <children>
-                              <Label prefHeight="20.0" prefWidth="125.0" text="Best to buy when" textOverrun="CLIP" wrapText="true">
+                              <Label text="Stock Data">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font size="15.0" />
                                  </font>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
                               </Label>
-                              <Label prefHeight="20.0" prefWidth="122.0" text="Do not buy when" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
+                              <FlowPane hgap="10.0" orientation="VERTICAL" prefHeight="152.0" prefWidth="253.0" styleClass="white-background" vgap="15.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label fx:id="weekRange52" alignment="CENTER" contentDisplay="CENTER" text="52 Week Range: ">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="weekRangeValue" text="weekRangeValue">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label fx:id="volume" text="Volume: ">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets left="10.0" />
+                                             </opaqueInsets>
+                                          </Label>
+                                          <Label fx:id="volumeValue" text="volumeLabel">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label fx:id="avgVolume" text="Avg. Volume: ">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="avgVolumeValue" text="Label">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label fx:id="marketCap" text="Market Cap: ">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="marketCapValue" text="marketCapValue">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
                                  <padding>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" top="15.0" />
                                  </padding>
-                              </Label>
-                              <Label text="Consensus: BUY" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
+                              </FlowPane>
                            </children>
+                        </VBox>
+                        <VBox>
                            <HBox.margin>
-                              <Insets bottom="10.0" right="15.0" />
+                              <Insets bottom="10.0" right="10.0" />
                            </HBox.margin>
-                        </GridPane>
+                           <children>
+                              <Label text="Best and Worst Indicators">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <FlowPane fx:id="bestWorstContianer" hgap="10.0" orientation="VERTICAL" prefHeight="152.0" prefWidth="233.0" styleClass="white-background" vgap="50.0">
+                                 <padding>
+                                    <Insets left="10.0" top="15.0" />
+                                 </padding>
+                              </FlowPane>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label text="All Indicator Statistics">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <FlowPane fx:id="indicatorStatPane" hgap="10.0" orientation="VERTICAL" prefHeight="152.0" prefWidth="332.0" styleClass="white-background" vgap="30.0">
+                                 <padding>
+                                    <Insets left="10.0" top="15.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets right="10.0" />
+                                 </opaqueInsets>
+                              </FlowPane>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
