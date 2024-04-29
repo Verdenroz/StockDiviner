@@ -10,6 +10,8 @@ module org.farmingdale.stockdiviner {
     requires firebase.admin;
     requires com.google.api.apicommon;
 
+    requires org.controlsfx.controls;
+
 
     opens org.farmingdale.stockdiviner to javafx.fxml;
     opens org.farmingdale.stockdiviner.model.financialmodeling to com.google.gson;
@@ -20,4 +22,6 @@ module org.farmingdale.stockdiviner {
     exports org.farmingdale.stockdiviner.model.financialmodeling;
     exports org.farmingdale.stockdiviner.model.zodiac;
     exports org.farmingdale.stockdiviner.model.firebase;
+    exports org.farmingdale.stockdiviner.model.analysis;
+    exports org.farmingdale.stockdiviner.model;
 }

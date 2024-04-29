@@ -1,6 +1,8 @@
 package org.farmingdale.stockdiviner.model.zodiac;
 
-public enum ZodiacSigns {
+import org.farmingdale.stockdiviner.model.Indicator;
+
+public enum ZodiacSigns implements Indicator {
     ARIES("Aries"),
     TAURUS("Taurus"),
     GEMINI("Gemini"),
@@ -20,6 +22,7 @@ public enum ZodiacSigns {
         this.displayName = displayName;
     }
 
+    @Override
     public String getDisplayName() {
         return displayName;
     }

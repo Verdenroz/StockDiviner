@@ -1,4 +1,4 @@
-import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalulator;
+import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
 import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ZodiacCalculatorTest {
     @Test
     public void testZodiacCalculator() {
-        ZodiacCalulator zodiacCalulator = ZodiacCalulator.getInstance();
+        ZodiacCalculator zodiacCalculator = ZodiacCalculator.getInstance();
 
         ZodiacSigns[] signs = ZodiacSigns.values();
         int[][] dates = {
@@ -14,7 +14,7 @@ public class ZodiacCalculatorTest {
         };
 
         for (int i = 0; i < signs.length; i++) {
-            assertEquals(signs[i], zodiacCalulator.getZodiacSign(dates[i][0], dates[i][1]));
+            assertEquals(signs[i], zodiacCalculator.getZodiacSign(dates[i][0], dates[i][1]));
         }
     }
 }

@@ -1,6 +1,10 @@
 import com.google.firebase.auth.UserRecord;
+import org.farmingdale.stockdiviner.model.financialmodeling.FullQuoteData;
 import org.farmingdale.stockdiviner.model.firebase.FirebaseAuthentication;
+import org.farmingdale.stockdiviner.model.firebase.FirebaseWatchlist;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class FirebaseTest {
 
@@ -33,5 +37,28 @@ public class FirebaseTest {
 
         UserRecord falseUser2 = auth.authenticateUser("wrong", "password");
         assert falseUser2 == null;
+    }
+
+    @Test
+    public void testAddToWatchlist() {
+        FirebaseWatchlist watchlist = FirebaseWatchlist.getInstance();
+        watchlist.addToWatchlist("harveytseng@gmail.com", "TSLA", "Apple Inc.");
+    }
+
+    @Test
+    public void testGetWatchList(){
+        FirebaseWatchlist watchlist = FirebaseWatchlist.getInstance();
+        try {
+            List<FullQuoteData> list = watchlist.getWatchlist("harveytseng@gmail.com");
+            for (FullQuoteData data : list) {
+                System.out.println(data.getName());
+                System.out.println(data.getChange());
+                System.out.println(data.getChangesPercentage());
+                System.out.println(data.getPreviousClose());
+                System.out.println(data.getAvgVolume());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

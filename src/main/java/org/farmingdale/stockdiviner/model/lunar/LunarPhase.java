@@ -1,6 +1,8 @@
 package org.farmingdale.stockdiviner.model.lunar;
 
-public enum LunarPhase {
+import org.farmingdale.stockdiviner.model.Indicator;
+
+public enum LunarPhase implements Indicator {
     NEW_MOON("New Moon"),
     FIRST_QUARTER("First Quarter"),
     FULL_MOON("Full Moon"),
@@ -12,7 +14,8 @@ public enum LunarPhase {
         this.phase = phase;
     }
 
-    public String getPhase() {
+    @Override
+    public String getDisplayName() {
         return this.phase;
     }
 }

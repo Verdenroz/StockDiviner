@@ -1,10 +1,12 @@
 package org.farmingdale.stockdiviner.model.animals;
 
+import org.farmingdale.stockdiviner.model.Indicator;
+
 /**
  * Enum for the Chinese Zodiac animals
  * @see ChineseNewYears
  */
-public enum ChineseAnimals {
+public enum ChineseAnimals implements Indicator {
     RAT("Rat"),
     OX("Ox"),
     TIGER("Tiger"),
@@ -24,6 +26,7 @@ public enum ChineseAnimals {
         this.displayName = displayName;
     }
 
+    @Override
     public String getDisplayName() {
         return displayName;
     }

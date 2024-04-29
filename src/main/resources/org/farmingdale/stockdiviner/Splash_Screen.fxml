@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="566.0" prefWidth="653.0" styleClass="greenish-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.farmingdale.stockdiviner.SplashScreen">
+   <children>
+      <ImageView fx:id="StockDivinerLogo" fitHeight="460.0" fitWidth="470.0" layoutX="96.0" layoutY="33.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" styleClass="button-shadows">
+         <image>
+            <Image url="@images/Stock-Diviner-splashLogo.png" />
+         </image>
+      </ImageView>
+      <ProgressBar fx:id="loadingBar" layoutX="96.0" layoutY="503.0" prefHeight="18.0" prefWidth="460.0" progress="0.0" stylesheets="@styles.css" />
+   </children>
+</AnchorPane>
