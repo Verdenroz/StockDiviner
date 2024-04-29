@@ -9,9 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.farmingdale.stockdiviner.model.firebase.FirebaseAuthentication;
 
@@ -28,6 +26,10 @@ public class RegistrationScreenController {
     public Label NotificationText;
     public Label emailNotificationText;
     public Label usernameNotificationText;
+    public Button returnButton;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     public static boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
@@ -84,6 +86,10 @@ public class RegistrationScreenController {
         }
     }
 
+    public void onReturnButtonClick(ActionEvent actionEvent) throws IOException {
+        ChangeView changeview = ChangeView.getInstance();
+        changeview.changeViewTo("welcome-screen", actionEvent);
+    }
 }
 
 // Email validation referenced from https://steemit.com/utopian-io/@creon/learn-java-fxml-part-1-creating-scenes-with-email-validation-and-scene-switch
