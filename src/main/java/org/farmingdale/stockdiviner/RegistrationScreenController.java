@@ -27,9 +27,6 @@ public class RegistrationScreenController {
     public Label emailNotificationText;
     public Label usernameNotificationText;
     public Button returnButton;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     public static boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
@@ -76,6 +73,8 @@ public class RegistrationScreenController {
                 emailNotificationText.setText("Email is already in use.");
                 return;
             }
+            SharedService sharedService = SharedService.getInstance();
+            sharedService.setUser(user);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registration-successful.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
