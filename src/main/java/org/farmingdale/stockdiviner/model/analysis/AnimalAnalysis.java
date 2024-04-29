@@ -1,6 +1,5 @@
 package org.farmingdale.stockdiviner.model.analysis;
 
-import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 import org.farmingdale.stockdiviner.model.alphavantage.MonthlyStockData;
 import org.farmingdale.stockdiviner.model.animals.ChineseAnimals;
 import org.farmingdale.stockdiviner.model.animals.ChineseNewYears;
@@ -23,7 +22,7 @@ public class AnimalAnalysis extends Analysis {
 
     public AnimalAnalysis(String stockSymbol) throws Exception {
         super(stockSymbol);
-        this.monthlyStockData = ImplAlphaVantageAPI.getInstance().getMonthlyTimeSeries(stockSymbol);
+        this.monthlyStockData = api.getMonthlyTimeSeries(stockSymbol);
         this.chineseNewYears = ChineseNewYears.getInstance();
         this.animalDates = initializeAnimalDates();
         this.analyze();

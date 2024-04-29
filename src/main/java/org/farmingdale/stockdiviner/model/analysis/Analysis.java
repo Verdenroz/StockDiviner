@@ -1,6 +1,7 @@
 package org.farmingdale.stockdiviner.model.analysis;
 
 import org.farmingdale.stockdiviner.model.Indicator;
+import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +13,12 @@ public abstract class Analysis {
     protected double bestStat;
     protected double worstStat;
     protected Map<Indicator, Double> analyses;
+    protected static ImplAlphaVantageAPI api;
 
-    public Analysis(String stockSymbol) throws Exception{
+    public Analysis(String stockSymbol) {
         this.stockSymbol = stockSymbol;
         this.analyses = new HashMap<>();
+        api = ImplAlphaVantageAPI.getInstance();
     }
 
     abstract void analyze() throws Exception;
