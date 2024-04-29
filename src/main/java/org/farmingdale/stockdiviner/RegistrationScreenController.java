@@ -24,6 +24,12 @@ public class RegistrationScreenController {
     public Button registerButton;
     public TextField emailTextField;
     public Label NotificationText;
+    public Label emailNotificationText;
+    public Label usernameNotificationText;
+    public Button returnButton;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     public static boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
@@ -41,25 +47,36 @@ public class RegistrationScreenController {
         FirebaseAuthentication auth = FirebaseAuthentication.getInstance();
         if(!Objects.equals(passwordField.getText(), reEnterPasswordField.getText())) {
             NotificationText.setText("Passwords do not match.");
+            if((!emailTextField.getText().contains("@")) || (!emailTextField.getText().contains("."))) {
+                emailNotificationText.setText("Email must contain a '@' sign and a '.' sign.");
+            }
+            else if(!validateEmail(emailTextField.getText())) {
+                emailNotificationText.setText("Invalid email address.");
+            }
         }
         else if(passwordField.getText().length() < 8) {
             NotificationText.setText("Password must be 8 characters or longer.");
+            if((!emailTextField.getText().contains("@")) || (!emailTextField.getText().contains("."))) {
+                emailNotificationText.setText("Email must contain a '@' sign and a '.' sign.");
+            }
+            else if(!validateEmail(emailTextField.getText())) {
+                emailNotificationText.setText("Invalid email address.");
+            }
         }
         else if((!emailTextField.getText().contains("@")) || (!emailTextField.getText().contains("."))) {
-            NotificationText.setText("Email must contain a '@' sign and a '.' sign.");
+            emailNotificationText.setText("Email must contain a '@' sign and a '.' sign.");
         }
         else if(!validateEmail(emailTextField.getText()))  {
-            NotificationText.setText("Invalid email address.");
+            emailNotificationText.setText("Invalid email address.");
         }
         else {
             UserRecord user = auth.createUser((emailTextField.getText()), usernameField.getText(), passwordField.getText());
             if(user == null) {
-                NotificationText.setText("Email is already in use.");
+                NotificationText.setText("");
+                emailNotificationText.setText("Email is already in use.");
                 return;
             }
-            SharedService sharedService = SharedService.getInstance();
-            sharedService.setUser(user);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warning-screen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registration-successful.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
 
@@ -67,6 +84,11 @@ public class RegistrationScreenController {
             stage.setScene(scene);
             stage.show();
         }
+    }
+
+    public void onReturnButtonClick(ActionEvent actionEvent) throws IOException {
+        ChangeView changeview = ChangeView.getInstance();
+        changeview.changeViewTo("welcome-screen", actionEvent);
     }
 }
 
