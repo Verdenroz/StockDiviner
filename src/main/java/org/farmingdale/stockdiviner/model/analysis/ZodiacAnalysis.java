@@ -5,11 +5,9 @@ import org.farmingdale.stockdiviner.model.zodiac.ZodiacCalculator;
 import org.farmingdale.stockdiviner.model.zodiac.ZodiacSigns;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.farmingdale.stockdiviner.model.alphavantage.ImplAlphaVantageAPI;
 
+import java.util.*;
 /**
  * This class is used to analyze the stock data based on the Zodiac Signs.
  * @see ZodiacSigns
